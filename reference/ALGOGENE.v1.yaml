@@ -1,0 +1,271 @@
+openapi: 3.0.0
+info:
+  title: ALGOGENE
+  version: '1.0'
+  contact:
+    name: support
+    url: 'https://algogene.com'
+    email: support@algogene.com
+  termsOfService: 'https://algogene.com/terms'
+  license:
+    url: 'https://algogene.com/terms'
+    name: ALGOGENE
+  description: 'This document discuss the usage of ALGOGENE REST API. '
+servers:
+  - url: 'https://algogene.com/rest/v1'
+    description: prod
+paths:
+  /query_marketprice:
+    get:
+      summary: Historical Market data
+      tags:
+        - data
+      responses:
+        '200':
+          description: OK
+          headers:
+            Content-Type:
+              schema:
+                type: string
+              description: application/json
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  res:
+                    type: object
+                    description: 'list of JSON object for candle stick sorted in ascending timestamp '
+                    required:
+                      - t
+                      - o
+                      - h
+                      - l
+                      - c
+                      - b
+                      - a
+                      - m
+                      - v
+                      - instrument
+                    properties:
+                      t:
+                        type: string
+                        description: timestamp at bar closing of time zone in GMT+0
+                        pattern: 'YYYY-MM-DD HH:MM:SS'
+                        format: date-time
+                      o:
+                        type: number
+                        description: open price for a particular candle bar
+                        minimum: 0
+                        format: float
+                      h:
+                        type: number
+                        minimum: 0
+                        format: float
+                        description: highest price for a particular candle bar
+                      l:
+                        type: number
+                        description: lowest price for a particular candle bar
+                        format: float
+                        minimum: 0
+                      c:
+                        type: number
+                        format: float
+                        minimum: 0
+                        description: closing price for a particular candle bar
+                      b:
+                        type: number
+                        format: float
+                        minimum: 0
+                        description: closing bid price for a particular candle bar
+                      a:
+                        type: number
+                        format: float
+                        minimum: 0
+                        description: closing ask price for a particular candle bar
+                      m:
+                        type: number
+                        format: float
+                        minimum: 0
+                        description: closing mid price for a particular candle bar
+                      v:
+                        type: integer
+                        minimum: 1
+                        description: transaction volume for a particular candle bar
+                      instrument:
+                        type: string
+                        description: instrument name for a particular candle bar
+                      expiry:
+                        type: string
+                        description: |-
+                          only available for FUT/OPT contract,
+                          expiry date for the instrument
+                      right:
+                        type: string
+                        description: "only available for OPT contract,\noption exercise right, \n'C' for call, 'P' for put"
+                      strike:
+                        type: number
+                        description: |-
+                          only available for OPT contract,
+                          strike price for the instrument
+                        format: float
+                        minimum: 0
+                  count:
+                    type: integer
+                    description: length of returned results
+                required:
+                  - res
+                  - count
+              examples:
+                Example:
+                  value:
+                    count: 3
+                    res:
+                      - a: 7.645
+                        b: 7.64
+                        c: 7.6425
+                        expiry: ''
+                        h: 7.773
+                        instrument: ZARJPY
+                        l: 7.64
+                        m: 7.6425
+                        o: 8.054
+                        right: ''
+                        strike: 0
+                        symbol: ZARJPY
+                        t: '2018-10-27 00:00:00'
+                        v: 20080
+                      - a: 7.692
+                        b: 7.67
+                        c: 7.681
+                        expiry: ''
+                        h: 7.706
+                        instrument: ZARJPY
+                        l: 7.5895
+                        m: 7.681
+                        o: 8.054
+                        right: ''
+                        strike: 0
+                        symbol: ZARJPY
+                        t: '2018-10-29 00:00:00'
+                        v: 21051
+                      - a: 7.677
+                        b: 7.66
+                        c: 7.6685
+                        expiry: ''
+                        h: 7.706
+                        instrument: ZARJPY
+                        l: 7.5895
+                        m: 7.6685
+                        o: 8.054
+                        right: ''
+                        strike: 0
+                        symbol: ZARJPY
+                        t: '2018-10-30 00:00:00'
+                        v: 22699
+        '400':
+          description: Bad Request
+          headers:
+            Content-Type:
+              schema:
+                type: string
+              description: application/json
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  res:
+                    type: string
+                    description: "Method not allowed! \nBad input parameters!"
+                required:
+                  - res
+              examples:
+                Example:
+                  value:
+                    res: 'Bad input parameters!'
+            application/xml:
+              schema:
+                type: object
+                properties: {}
+      operationId: get-query_marketprice
+      parameters:
+        - schema:
+            type: string
+            default: application/json
+          in: header
+          name: Content-Type
+          description: application/json
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                api_key:
+                  type: string
+                  description: your API key
+                user:
+                  type: string
+                  description: your user id generated by ALGOGENE at system registration
+                count:
+                  type: integer
+                  description: "number of bar to return, \nmaximum is limited to 1000"
+                  minimum: 1
+                  maximum: 1000
+                  default: 1
+                  example: 100
+                interval:
+                  type: string
+                  description: "specify the candle stick interval, \navailable value include \n'M','M2','M5','M10','M15','M30','H','H2','H3','H4','H6','H12','D' "
+                timestamp:
+                  type: string
+                  format: date-time
+                  pattern: 'YYYY-MM-DD HH:MM:SS'
+                  description: "retrieve data with timestamp less than this specified value, \ntime zone in GMT+0, \nformat in “yyyy-mm-dd HH:MM:SS” "
+                instrument:
+                  type: string
+                  description: value must be one of available instruments from ALGOGENE instrument list
+                expiry:
+                  type: string
+                  description: "only applicable for FUT/OPT contracts, \nexpiry date in format yyyymmdd"
+                  format: date
+                  pattern: YYYYMMDD
+                right:
+                  type: string
+                  description: "only applicable for OPT contracts, \nthe type exercise right of a particular Option contract,\nonly accept 'C' for call option, 'P' for put option"
+                  pattern: C or P
+                strike:
+                  type: number
+                  format: float
+                  minimum: 0
+                  description: "only applicable for OPT contracts, \nthe strike price of a particular Option contract"
+                  default: 0
+                  example: 0
+              required:
+                - api_key
+                - user
+                - count
+                - interval
+                - timestamp
+                - instrument
+            examples: {}
+          text/html:
+            schema:
+              type: object
+              properties: {}
+        description: ''
+      description: This endpoint is used to query historical market data.
+    parameters: []
+components:
+  schemas:
+    data:
+      title: data
+      type: object
+      x-examples: {}
+  securitySchemes:
+    API Key - 1:
+      name: API Key
+      type: apiKey
+      in: query
+security: []
