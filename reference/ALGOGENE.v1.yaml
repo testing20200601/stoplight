@@ -936,8 +936,6 @@ paths:
   /dev_node:
     get:
       summary: Development Node
-      tags:
-        - User’s Strategy Development History
       responses:
         '200':
           description: OK
@@ -1024,6 +1022,8 @@ paths:
                 - runtime_id
         description: ''
       description: This endpoint is used to get the direct parent-child nodes of a particular strategy from ALGOGENE online backtest history.
+      tags:
+        - Strategy Development
     parameters: []
   /strategy_stats:
     get:
