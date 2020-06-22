@@ -1025,9 +1025,9 @@ paths:
         description: ''
       description: This endpoint is used to get the direct parent-child nodes of a particular strategy from ALGOGENE online backtest history.
     parameters: []
-  /query_strategy_stats:
+  /strategy_stats:
     get:
-      summary: 'Strategy Setting & Performance Statistics'
+      summary: 'Settings & Performance Statistics'
       tags:
         - Strategy Details
       responses:
@@ -1150,11 +1150,125 @@ paths:
                 type: object
                 properties:
                   settings:
-                    type: string
+                    type: object
                     description: a JSON object specifying the strategy initial setting.
+                    properties:
+                      BaseCurrency:
+                        type: string
+                      EndDate:
+                        type: string
+                      InitialCapital:
+                        type: number
+                      Leverage:
+                        type: number
+                      StartDate:
+                        type: string
+                      TradeCost:
+                        type: number
+                      allowShortSell:
+                        type: boolean
+                      dataset:
+                        type: number
+                      isEconstatFeedon:
+                        type: boolean
+                      isWeatherFeedOn:
+                        type: boolean
+                      p_devnode:
+                        type: string
+                      strategyName:
+                        type: string
+                      subscribeList:
+                        type: array
+                        items:
+                          type: string
+                      user_parms:
+                        type: array
+                        items:
+                          type: string
                   performance:
-                    type: string
+                    type: object
                     description: a JSON object of strategy performance statistics
+                    properties:
+                      Acdate:
+                        type: string
+                      AnnualSharpe:
+                        type: number
+                      AnnualSortino:
+                        type: number
+                      AvgConsLoss:
+                        type: number
+                      AvgConsWin:
+                        type: number
+                      AvgDrawdownDuration:
+                        type: number
+                      AvgPerDayPL:
+                        type: number
+                      DailySharpe:
+                        type: number
+                      DailySortino:
+                        type: number
+                      DownsideDailyStdDev:
+                        type: number
+                      MeanAnnualReturn:
+                        type: number
+                      MeanDailyReturn:
+                        type: number
+                      MedianDailyReturn:
+                        type: number
+                      OddRatio:
+                        type: number
+                      PlainDailyStdDev:
+                        type: number
+                      Q1DailyReturn:
+                        type: number
+                      Q3DailyReturn:
+                        type: number
+                      Score_Total:
+                        type: number
+                      TotalPnL:
+                        type: number
+                      TradableDay:
+                        type: number
+                      TradeCnt:
+                        type: integer
+                      WinRate:
+                        type: number
+                      c95_1DVaR:
+                        type: number
+                      c99_1DVaR:
+                        type: number
+                      maxConsLossAmt:
+                        type: number
+                      maxConsLossDay:
+                        type: number
+                      maxConsWinAmt:
+                        type: number
+                      maxConsWinDay:
+                        type: number
+                      maxDrawdownDuration:
+                        type: number
+                      maxDrawdown_amt:
+                        type: number
+                      maxDrawdown_pct:
+                        type: number
+                      numLossDay:
+                        type: boolean
+                      numWinDay:
+                        type: boolean
+                      score_AnnualSharpe:
+                        type: number
+                      score_AvgDrawdownDuration:
+                        type: number
+                      score_Rsquare:
+                        type: number
+                      score_TradePerDay:
+                        type: number
+                      score_WinRate:
+                        type: number
+                      score_maxDrawdown_pct:
+                        type: number
+                      simpleReturn:
+                        type: number
                 required:
                   - settings
                   - performance
@@ -1260,6 +1374,7 @@ paths:
                 - runmode
                 - acdate
         description: ''
+      description: This endpoint is used to query a particular strategy settings and performance statistics.
     parameters: []
   /query_strategy_pl:
     get:
@@ -1389,6 +1504,7 @@ paths:
                 - runmode
                 - acdate
         description: ''
+      description: This endpoint is used to query the history of daily cumulative profit/loss of a particular trading strategy.
   /query_strategy_pos:
     get:
       summary: History of Daily Outstanding Inventory
@@ -1508,6 +1624,7 @@ paths:
                 - runtime_id
                 - runmode
                 - acdate
+      description: This endpoint is used to query the daily history of position of a particular trading strategy.
   /query_strategy_bal:
     get:
       summary: History of Daily Account Balance
@@ -1667,6 +1784,7 @@ paths:
                 - runtime_id
                 - runmode
                 - acdate
+      description: This endpoint is used to query the history of account balance and margin usage of a particular trading strategy.
   /query_strategy_param:
     get:
       summary: History of Daily User-Defined-Variables
@@ -1813,114 +1931,7 @@ paths:
                 - runmode
                 - acdate
         description: ''
-  /query_strategy_mkt:
-    get:
-      summary: History of Daily Market Closing Price
-      tags:
-        - Strategy Details
-      responses:
-        '200':
-          description: OK
-          headers:
-            Content-Type:
-              schema:
-                type: string
-              description: application/json
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  count:
-                    type: integer
-                    description: length of returned result
-                  res:
-                    type: object
-                    description: a list of JSON object sorted in ascending time
-                    required:
-                      - Acdate
-                      - ...
-                    properties:
-                      Acdate:
-                        type: string
-                        description: accounting date
-                      ...:
-                        type: string
-                        description: closing price for all traded instrument(s)
-                required:
-                  - count
-                  - res
-              examples:
-                Example:
-                  value:
-                    count: 145
-                    res:
-                      - Acdate: '2019-01-02'
-                        HKXHKD: 25380.969
-                      - Acdate: '2019-01-04'
-                        HKXHKD: 25988.0345
-                      - Acdate: '2019-12-18'
-                        HKXHKD: 27825.469
-                      - Acdate: '2019-12-20'
-                        HKXHKD: 28037.27
-                      - Acdate: '2019-12-23'
-                        HKXHKD: 28033.469
-        '400':
-          description: Bad Request
-          headers:
-            Content-Type:
-              schema:
-                type: string
-              description: application/json
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  res:
-                    type: string
-                    description: "Method not allowed! \nBad input parameters!"
-                required:
-                  - res
-              examples:
-                Example:
-                  value:
-                    res: 'Bad input parameters!'
-      operationId: get-query_strategy_mkt
-      parameters:
-        - schema:
-            type: string
-          in: header
-          name: Content-Type
-          description: application/json
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                api_key:
-                  type: string
-                  description: your API key
-                user:
-                  type: string
-                  description: your user id generated by ALGOGENE at system registration
-                runtime_id:
-                  type: string
-                  description: the strategy runtime ID
-                runmode:
-                  type: string
-                  description: 'strategy run mode, value either in ‘backtest’,’livetest’,’livetrade’'
-                acdate:
-                  type: string
-                  description: 'the accounting date to retrieve the details, value in “YYYY-MM-DD” format; omitted or empty will return the full history'
-              required:
-                - api_key
-                - user
-                - runtime_id
-                - runmode
-                - acdate
-        description: ''
+      description: This endpoint is used to query the history of user-defined training parameters of a particular trading strategy.
   /query_strategy_trade:
     get:
       summary: History of Transactions
@@ -2084,7 +2095,8 @@ paths:
                 - runtime_id
                 - runmode
                 - acdate
-  /query_strategy_model_resid:
+      description: This endpoint is used to query the whole transaction history of a particular trading strategy.
+  /strategy_model_resid:
     get:
       summary: History of Model Residuals
       tags:
@@ -2103,11 +2115,13 @@ paths:
                 type: object
                 properties:
                   count:
-                    type: string
                     description: length of returned result
+                    type: number
                   res:
-                    type: string
+                    type: array
                     description: a list of residual terms derived from model calibration
+                    items:
+                      type: number
                 required:
                   - count
                   - res
@@ -2184,7 +2198,9 @@ paths:
                 - runmode
                 - acdate
         description: ''
-  /query_strategy_trade_resid:
+      description: 'This endpoint is used to get the calibration residuals of the underlying user-defined trading model . '
+    parameters: []
+  /strategy_trade_resid:
     get:
       summary: History of Daily Trading Residuals
       tags:
@@ -2207,13 +2223,13 @@ paths:
                     description: length of returned result
                   res:
                     type: object
+                    description: a list of JSON object sorted in ascending time
                     required:
                       - Acdate
                       - residual
-                    description: a list of JSON object sorted in ascending time
                     properties:
                       Acdate:
-                        type: number
+                        type: string
                         description: accounting date
                       residual:
                         type: number
@@ -2284,15 +2300,13 @@ paths:
                 runmode:
                   type: string
                   description: 'strategy run mode, value either in ‘backtest’,’livetest’,’livetrade’'
-                acdate:
-                  type: string
-                  description: 'the accounting date to retrieve the details, value in “YYYY-MM-DD” format'
               required:
                 - api_key
                 - user
                 - runtime_id
                 - runmode
-                - acdate
+      description: 'This endpoint is used to get the daily history of the user-defined trading entrance differential. '
+    parameters: []
   /market_perf:
     get:
       summary: Market Index Performance
