@@ -10,7 +10,7 @@ info:
   license:
     url: 'https://algogene.com/terms'
     name: ALGOGENE
-  description: 'This document discuss the usage of ALGOGENE REST API. '
+  description: This document discuss the usage of ALGOGENE REST API.
 servers:
   - url: 'https://algogene.com/rest/v1'
     description: prod
@@ -18,8 +18,6 @@ paths:
   /query_marketprice:
     get:
       summary: Historical Market data
-      tags:
-        - data
       responses:
         '200':
           description: OK
@@ -256,7 +254,2214 @@ paths:
               properties: {}
         description: ''
       description: This endpoint is used to query historical market data.
+      tags:
+        - Historical Data
     parameters: []
+  /list_all_instrument:
+    get:
+      summary: List all available Financial Instruments
+      tags:
+        - Contract Specification
+      responses:
+        '200':
+          description: OK
+          headers:
+            Content-Type:
+              schema:
+                type: string
+              description: application/json
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  count:
+                    type: integer
+                    description: length of returned results
+                  res:
+                    type: object
+                    description: a list of all available financial instruments sorted in alphabetical order
+                required:
+                  - count
+                  - res
+              examples:
+                Example:
+                  value:
+                    count: 128
+                    res:
+                      - AUDCAD
+                      - AUDCHF
+                      - AUDHKD
+                      - AUDJPY
+                      - AUDNZD
+                      - AUDSGD
+                      - AUDUSD
+                      - AUXAUD
+                      - BCOUSD
+                      - BTCUSD
+                      - BUNDEUR
+                      - CADCHF
+                      - CADHKD
+                      - CADJPY
+                      - CADSGD
+                      - CHFHKD
+                      - CHFJPY
+                      - CHFZAR
+                      - CNXUSD
+                      - CORNUSD
+                      - ETXEUR
+                      - EURAUD
+                      - EURCAD
+                      - EURCHF
+                      - EURCZK
+                      - EURDKK
+                      - EURGBP
+                      - EURHKD
+                      - EURHUF
+                      - EURJPY
+                      - EURNOK
+                      - EURNZD
+                      - EURPLN
+                      - EURSEK
+                      - EURSGD
+                      - EURTRY
+                      - EURUSD
+                      - EURZAR
+                      - FRXEUR
+                      - GBPAUD
+                      - GBPCAD
+                      - GBPCHF
+                      - GBPHKD
+                      - GBPJPY
+                      - GBPNZD
+                      - GBPPLN
+                      - GBPSGD
+                      - GBPUSD
+                      - GBPZAR
+                      - GRXEUR
+                      - HKDJPY
+                      - HKXHKD
+                      - HSIFUT
+                      - HSIOPT
+                      - INXUSD
+                      - JPXJPY
+                      - MBTCUSD
+                      - NATGASUSD
+                      - NLXEUR
+                      - NSXUSD
+                      - NZDCAD
+                      - NZDCHF
+                      - NZDHKD
+                      - NZDJPY
+                      - NZDSGD
+                      - NZDUSD
+                      - SGDCHF
+                      - SGDHKD
+                      - SGDJPY
+                      - SGXSGD
+                      - SOYBNUSD
+                      - SPXUSD
+                      - SUGARUSD
+                      - TN10YUSD
+                      - TN2YUSD
+                      - TN30YUSD
+                      - TN5YUSD
+                      - TRYJPY
+                      - TWXUSD
+                      - UDXUSD
+                      - UKXGBP
+                      - US2000USD
+                      - US30USD
+                      - USDCAD
+                      - USDCHF
+                      - USDCNH
+                      - USDCZK
+                      - USDDKK
+                      - USDHKD
+                      - USDHUF
+                      - USDINR
+                      - USDJPY
+                      - USDMXN
+                      - USDNOK
+                      - USDPLN
+                      - USDSAR
+                      - USDSEK
+                      - USDSGD
+                      - USDTHB
+                      - USDTRY
+                      - USDZAR
+                      - WHEATUSD
+                      - WTIUSD
+                      - XAGAUD
+                      - XAGCAD
+                      - XAGCHF
+                      - XAGEUR
+                      - XAGGBP
+                      - XAGHKD
+                      - XAGJPY
+                      - XAGNZD
+                      - XAGSGD
+                      - XAGUSD
+                      - XAUAUD
+                      - XAUCAD
+                      - XAUCHF
+                      - XAUEUR
+                      - XAUGBP
+                      - XAUHKD
+                      - XAUJPY
+                      - XAUNZD
+                      - XAUSGD
+                      - XAUUSD
+                      - XAUXAG
+                      - XCUUSD
+                      - XPDUSD
+                      - XPTUSD
+                      - ZARJPY
+        '400':
+          description: Bad Request
+          headers:
+            Content-Type:
+              schema:
+                type: string
+              description: application/json
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  res:
+                    type: string
+                    description: "Method not allowed! \nBad input parameters!"
+                required:
+                  - res
+              examples:
+                Example:
+                  value:
+                    res: 'Bad input parameters!'
+      operationId: get-list_all_instrument
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: Content-Type
+          description: application/json
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                api_key:
+                  type: string
+                  description: your API key
+                user:
+                  type: string
+                  description: your user id generated by ALGOGENE at system registration
+              required:
+                - api_key
+                - user
+  /query_contract:
+    get:
+      summary: Details of Contract Specification
+      tags:
+        - Contract Specification
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  count:
+                    type: integer
+                    description: length of returned results
+                  res:
+                    type: object
+                    description: a JSON object for the financial contract specification
+                    required:
+                      - contractSize
+                      - market
+                      - producttype
+                      - settleCurrency
+                      - symbol_OANDA
+                      - ib
+                    properties:
+                      contractSize:
+                        type: string
+                        description: the number of share per 1 lot
+                      market:
+                        type: string
+                        description: |-
+                          the corresponding asset market, available values ‘COM’, ‘CRYTO’, ‘ENERGY’,
+                          ‘EQ’, ‘FX’, ‘IR’, ‘METAL’
+                      producttype:
+                        type: string
+                        description: 'the product nature, available values ‘SPOT’, ‘FUT’, ‘OPT’'
+                      settleCurrency:
+                        type: string
+                        description: the currency used for settlement
+                      symbol_OANDA:
+                        type: string
+                        description: the corresponding contract name from OANDA
+                      ib:
+                        type: object
+                        description: the corresponding contract spec from Interactive Broker
+                        required:
+                          - conId
+                          - currency
+                          - localSymbol
+                          - minTick
+                          - multiplier
+                          - priceMagnifier
+                          - secType
+                          - symbol
+                          - underConId
+                          - contract
+                        properties:
+                          conId:
+                            type: string
+                            description: the contract ID
+                          currency:
+                            type: string
+                            description: the underlying settlement currency
+                          localSymbol:
+                            type: string
+                            description: the underlying contract symbol
+                          minTick:
+                            type: string
+                            description: the minimum price change for the underlying
+                          multiplier:
+                            type: string
+                            description: contract size multiplier per 1 lot
+                          priceMagnifier:
+                            type: string
+                            description: price magnifier per 1 point movement
+                          secType:
+                            type: string
+                            description: ' the contract security type, available values ‘CASH’, ‘SEK’, ‘FUT’, ‘OPT’'
+                          symbol:
+                            type: string
+                            description: contract symbol for the risky leg
+                          underConId:
+                            type: string
+                            description: the underlying contract ID
+                          contract:
+                            type: object
+                            description: a list of JSON object for available FUT/OPT contracts
+                            required:
+                              - conId
+                              - expiry
+                              - localSymbol
+                            properties:
+                              conId:
+                                type: string
+                                description: the FUT/OPT contract ID
+                              expiry:
+                                description: ' the expiry date for FUT/OPT contract'
+                                type: string
+                              localSymbol:
+                                type: string
+                                description: contract symbol for FUT/OPT contract
+                              right:
+                                type: string
+                                description: ' the option type for OPT contract, value either in ‘C’ or ‘P’'
+                              strike:
+                                type: number
+                                description: the option exercise strike price
+                required:
+                  - count
+                  - res
+              examples:
+                Example:
+                  value:
+                    res:
+                      contractSize: 100000
+                      ib:
+                        conId: 15016059
+                        contract:
+                          - conId: ''
+                            expiry: ''
+                            localSymbol: ''
+                            right: ''
+                            strike: 0
+                        currency: JPY
+                        localSymbol: USD.JPY
+                        minTick: 0.005
+                        multiplier: 1
+                        priceMagnifier: 1
+                        secType: CASH
+                        symbol: USD
+                        underConId: 0
+                      market: FX
+                      producttype: SPOT
+                      settleCurrency: JPY
+                      symbol_OANDA: USD_JPY
+          headers:
+            Content-Type:
+              schema:
+                type: string
+              description: application/json
+        '400':
+          description: Bad Request
+          headers:
+            Content-Type:
+              schema:
+                type: string
+              description: application/json
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  res:
+                    type: string
+                    description: "Method not allowed! \nBad input parameters!"
+                required:
+                  - res
+              examples:
+                Example:
+                  value:
+                    res: 'Bad input parameters!'
+      operationId: get-query_contract
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: Content-Type
+          description: application/json
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                api_key:
+                  type: string
+                  description: your API key
+                user:
+                  type: string
+                  description: your user id generated by ALGOGENE at system registration
+                instrument:
+                  type: string
+                  description: one of the financial instrument names (refer to section 1.1)
+              required:
+                - api_key
+                - user
+                - instrument
+        description: ''
+  /query_news:
+    get:
+      summary: News
+      tags:
+        - Historical Data
+      responses:
+        '200':
+          description: OK
+          headers:
+            Content-Type:
+              schema:
+                type: string
+              description: application/json
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  count:
+                    type: integer
+                    description: length of returned results
+                  res:
+                    type: object
+                    description: a list of JSON object for News sorted in ascending published time
+                    required:
+                      - published
+                      - authors
+                      - title
+                      - source
+                      - text
+                      - category
+                      - line
+                      - top_image
+                      - movies
+                    properties:
+                      published:
+                        type: string
+                        description: published time in GMT+0 of a particular News
+                      authors:
+                        type: string
+                        description: list of authors of a particular News
+                      title:
+                        type: string
+                        description: header/title of a particular News
+                      source:
+                        type: string
+                        description: publisher of a particular News
+                      text:
+                        type: string
+                        description: content of a particular News
+                      category:
+                        type: string
+                        description: category of a particular News
+                      line:
+                        type: string
+                        description: url link of embedded image in a particular News
+                      top_image:
+                        type: string
+                        description: url link of embedded image in a particular News
+                      movies:
+                        type: string
+                        description: list of video links embedded in a particular News
+                required:
+                  - count
+                  - res
+              examples:
+                Example:
+                  value:
+                    count: 2
+                    res:
+                      - authors: '[]'
+                        category: USA
+                        link: 'https://news.google.com/__i/rss/rd/articles/CBMiigFodHRwczovL3d3dy5jYnNzcG9ydHMuY29tL25mbC9uZXdzL3RodXJzZGF5LW5pZ2h0LWZvb3RiYWxsLW9kZHMtbGluZS1zcHJlYWQtcmF2ZW5zLXZzLWpldHMtcGlja3Mtb3B0aW1hbC1wcmVkaWN0aW9ucy1mcm9tLWV4cGVydC13aG9zLTgtMC_SAY4BaHR0cHM6Ly93d3cuY2Jzc3BvcnRzLmNvbS9uZmwvbmV3cy90aHVyc2RheS1uaWdodC1mb290YmFsbC1vZGRzLWxpbmUtc3ByZWFkLXJhdmVucy12cy1qZXRzLXBpY2tzLW9wdGltYWwtcHJlZGljdGlvbnMtZnJvbS1leHBlcnQtd2hvcy04LTAvYW1wLw?oc=5'
+                        movies: '[]'
+                        published: '2019-12-13 00:00:00.000000'
+                        source: CBS Sports
+                        text: |-
+                          The Baltimore Ravens have survived challenges from two potentially playoff-bound opponents to run their winning streak to nine games. Now, they face an improving New York Jets team seeking a signature win with an upset. The teams square off on Thursday Night Football from M&T Bank Stadium, with kickoff set for 8:20 p.m. ET. The Ravens (11-2) recorded one-score wins against the Buffalo Bills and San Francisco 49ers the past two weeks to secure the earliest playoff berth in franchise history. Baltimore is a 17-point favorite and the over-under for total points scored is 44 in the latest Ravens vs. Jets odds after opening at 45. Before locking in any Jets vs. Ravens picks or Thursday Night Football predictions, make sure you see what SportsLine expert Mike Tierney has to say.
+
+                          The veteran sportswriter, whose work appears in The New York Times and Los Angeles Times, has covered football of all levels for decades. That expertise has been evident since he joined SportsLine in 2016, as he has been a consistent winner in both college and pro football. He enters this week as SportsLine's most profitable NFL handicapper this season, posting a record of 38-19 on his NFL picks and yielding a return of more than $1,700 for his followers.
+
+                          What's more, Tierney has had a sharp eye for the trajectories of these clubs, posting a record of 22-6 on NFL picks against the spread on games involving the Jets or Ravens over the past two seasons. He has been particularly locked in on Baltimore and has connected on his last eight picks involving the Ravens.
+
+                          In the Week 11 Monday Night Football matchup between the Ravens and Rams, Tierney told SportsLine members that Baltimore (-3) would overwhelm Los Angeles and recommended backing the short road favorite. The Ravens dominated in a 45-6 win, giving Tierney's followers another easy winner. Those who have consistently followed him are way up.
+
+                          Now, he has locked in on Jets vs. Ravens from every angle and released a confident against-the-spread pick that is available at SportsLine. Go to SportsLine to see it. Here are the NFL lines and trends for Jets vs. Ravens:
+
+                          Ravens vs. Jets spread: Ravens -17
+
+                          Ravens vs. Jets over-under: 44 points
+
+                          Ravens vs. Jets money line: Ravens -1416, Jets +819
+
+                          BAL: The favorite has covered six of the past eight meetings.
+
+                          NYJ: Sam Darnold has nine total touchdowns in last four games.
+
+                          Tierney knows Baltimore quarterback Lamar Jackson is active for Thursday Night Football even though he suffered a quad injury suffered against Buffalo. He has been limited in practice this week, but has repeatedly told the media he feels "great." He has expressed similar sentiments on his social media accounts.
+
+                          The second-year quarterback is believed to be front-runner in the league MVP race and he has a chance to build on a memorable season. Jackson already has become the first NFL quarterback to throw for more than 2,500 yards and rush for more than 1,000 yards in a season. He has 441 rushing yards and four touchdowns over his past six games.
+
+                          Still, Baltimore isn't assured of covering the Ravens vs. Jets spread against a New York club that has seen a resurgence in the second half of the season.
+
+                          The Jets can take confidence from the fact that they notched their first AFC East victory last Sunday despite missing running back Le'Veon Bell and safety Jamal Adams. Bell missed the game because of an illness, but is expected to be available Thursday. Adams sat out because of a sprained left ankle and is doubtful for Thursday Night Football.
+
+                          Darnold withstood having his hand stepped on to lead New York on its game-winning drive. The quarterback told the media the injury wasn't serious, just minor bruising, and he is not listed on the team's injury report. Darnold has thrown nine touchdowns against two interceptions in the past five games.
+
+                          We can tell you Tierney is leaning under the total, but his much stronger play is on the spread. He's found a critical x-factor that makes one side of the spread hit hard on Thursday Night Football. He's sharing what it is, and who to back, only at SportsLine.
+
+                          Who wins Jets vs. Ravens on Thursday Night Football? And what critical x-factor makes one side of the spread a must-back? Visit SportsLine now to see which side of the Jets vs. Ravens spread you should be all over Thursday, all from the football expert who has hit eight straight picks involving Baltimore.
+                        title: "Thursday Night Football odds, line, spread: Ravens vs. Jets picks, top predictions from expert who's 8-0"
+                        top_image: 'https://sportshub.cbsistatic.com/i/r/2019/11/26/37678b3e-e189-4531-be5a-1dc8b83dc92a/thumbnail/1200x675/8eae3c79eebd9d879728f64ed8a9d51a/jacksonrams.png'
+                      - authors: '[]'
+                        category: WORLD
+                        link: 'http://world.people.com.cn/n1/2019/1213/c1002-31505023.html'
+                        movies: '[]'
+                        published: '2019-12-13 00:00:00.000000'
+                        source: PeopleDaily
+                        text: |-
+                          人民网讯 当地时间12月12日，在加拿大的哈德逊湾，两只北极熊正在互相打闹，其中一只被打得举熊掌“投降”，场面十分逗趣。
+
+                          人 民 网 版 权 所 有 ，未 经 书 面 授 权 禁 止 使 用
+
+                          Copyright © 1997-2019 by www.people.com.cn. all rights reserved
+                        title: 嘴掌并用！两只北极熊互相推搡打闹画面十分逗趣--国际--人民网
+                        top_image: 'http://world.people.com.cn/NMediaFile/2019/1204/MAIN201912040900000328482192250.jpg'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  res:
+                    type: string
+                    description: "Method not allowed! \nBad input parameters!"
+                required:
+                  - res
+              examples:
+                Example:
+                  value:
+                    res: 'Bad input parameters!'
+          headers:
+            Content-Type:
+              schema:
+                type: string
+              description: application/json
+      operationId: get-query_news
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: Content-Type
+          description: application/json
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                api_key:
+                  type: string
+                  description: your API key
+                user:
+                  type: string
+                  description: your user id generated by ALGOGENE at system registration
+                count:
+                  type: integer
+                  description: 'number of News to return, maximum is 100'
+                timestamp:
+                  type: string
+                  description: 'retrieve data with timestamp less than this specified value, format in “yyyy-mm-dd”'
+                lang:
+                  type: string
+                  description: |-
+                    language of News to retrieve, language codes follows [ISO 639-1 codes], available values
+                    include
+                    ‘af','ar','bg','bn','ca','cs','cy','da','de','el','en','es','et','fa','fi','fr','gu','he','hi','hr','hu','id','it','ja','kn','ko
+                    ','lt','lv','mk','ml','mr','ne','nl','no','pa','pl','pt','ro','ru','sk','sl','so','sq','sv','sw','ta','te','th','tl','tr','uk','
+                    ur','vi','zh-cn','zh-tw'
+              required:
+                - api_key
+                - user
+                - count
+                - timestamp
+                - lang
+  /query_strategy_devtree:
+    get:
+      summary: Full Development Tree
+      tags:
+        - User’s Strategy Development History
+      responses:
+        '200':
+          description: OK
+          headers:
+            Content-Type:
+              schema:
+                type: string
+              description: application/json
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  numOfBranch:
+                    type: string
+                    description: Total number of strategy branch developed by user
+                  res:
+                    type: string
+                    description: |-
+                      a JSON object for the full strategy development branch history (in parent, child, sibling
+                      structure)
+                required:
+                  - numOfBranch
+                  - res
+              examples:
+                Example:
+                  value:
+                    numOfBranch: 2
+                    res:
+                      '20200325_041638_279000':
+                        '20200325_043404_549000':
+                          '20200325_045304_197000':
+                            '20200325_061011_400000': {}
+                            '20200412_123923_298000':
+                              '20200412_125649_253000': {}
+                        '20200325_044033_341000': {}
+                      '20200325_055841_183000': {}
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  res:
+                    type: string
+                    description: "Method not allowed! \nBad input parameters!"
+                required:
+                  - res
+              examples:
+                Example:
+                  value:
+                    res: 'Bad input parameters!'
+          headers:
+            Content-Type:
+              schema:
+                type: string
+              description: application/json
+      operationId: get-query_strategy_devtree
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: Content-Type
+          description: application/json
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                api_key:
+                  type: string
+                  description: your API key
+                user:
+                  type: string
+                  description: your user id generated by ALGOGENE at system registration
+              required:
+                - api_key
+                - user
+  /query_strategy_devnode:
+    get:
+      summary: Development Node
+      tags:
+        - User’s Strategy Development History
+      responses:
+        '200':
+          description: OK
+          headers:
+            Content-Type:
+              schema:
+                type: string
+              description: application/json
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  parent:
+                    type: string
+                    description: the parent node for runtime ID along the development branch
+                  childs:
+                    type: string
+                    description: a list of direct child nodes following runtime ID node.
+                  siblings:
+                    type: string
+                    description: a list of sibling nodes that developed from the same parent node.
+                required:
+                  - parent
+              examples:
+                Example:
+                  value:
+                    parent: ''
+                    childs:
+                      - '20200325_043404_549000'
+                      - '20200325_044033_341000'
+                    siblings:
+                      - '20200325_055841_183000'
+        '400':
+          description: Bad Request
+          headers:
+            Content-Type:
+              schema:
+                type: string
+              description: application/json
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  res:
+                    type: string
+                    description: "Method not allowed! \nBad input parameters!"
+                required:
+                  - res
+              examples:
+                Example:
+                  value:
+                    res: 'Bad input parameters!'
+      operationId: get-query_strategy_devnode
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: Content-Type
+          description: application/json
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                api_key:
+                  type: string
+                  description: your API key
+                user:
+                  type: string
+                  description: your user id generated by ALGOGENE at system registration
+                runtime_id:
+                  type: string
+                  description: the strategy runtime ID in development tree
+              required:
+                - api_key
+                - user
+                - runtime_id
+        description: ''
+  /query_strategy_stats:
+    get:
+      summary: 'Strategy Setting & Performance Statistics'
+      tags:
+        - Strategy Details
+      responses:
+        '200':
+          description: OK
+          headers:
+            Content-Type:
+              schema:
+                type: string
+              description: application/json
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  settings:
+                    type: string
+                    description: a JSON object specifying the strategy initial setting.
+                  performance:
+                    type: string
+                    description: ' a JSON object of strategy performance statistics'
+                required:
+                  - settings
+                  - performance
+              examples:
+                Example:
+                  value:
+                    performance:
+                      Acdate: '2020-01-31 00:00:00'
+                      AnnualSharpe: 0.7166122085656221
+                      AnnualSortino: 0.8043711913536009
+                      AvgConsLoss: 1.8285714285714285
+                      AvgConsWin: 1.0857142857142856
+                      AvgDrawdownDuration: 15.583333333333334
+                      AvgPerDayPL: 47.36691666666674
+                      AvgPerTradePL: 170.52090000000027
+                      DailySharpe: 0.04514232596041397
+                      DailySortino: 0.050670622240628
+                      DownsideDailyStdDev: 0.011136366282438123
+                      MeanAnnualReturn: 0.1422002254757336
+                      MeanDailyReturn: 0.0005642866090306889
+                      MedianDailyReturn: 0
+                      OddRatio: 0.8947368421052632
+                      PlainDailyStdDev: 0.012500166906010137
+                      Q1DailyReturn: -0.0005070316675807596
+                      Q3DailyReturn: 0.005085581962306018
+                      Score_Total: 51.531357678855066
+                      TotalPnL: 1705.2090000000026
+                      TradableDay: 36
+                      TradeCnt: 10
+                      WinRate: 0.4722222222222222
+                      c95_1DVaR: -0.005069969039582655
+                      c99_1DVaR: -0.04679992901351671
+                      maxConsLossAmt: -6682.4619999999995
+                      maxConsLossDay: 9
+                      maxConsWinAmt: 3909.320000000007
+                      maxConsWinDay: 5
+                      maxDrawdownDuration: 33
+                      maxDrawdown_amt: 6682.4619999999995
+                      maxDrawdown_pct: 0.06682462
+                      numLossDay: 19
+                      numWinDay: 17
+                      score_AnnualSharpe: 67.1860566519164
+                      score_AvgDrawdownDuration: 65.81352833638026
+                      score_Rsquare: 0.003902148470089179
+                      score_TradePerDay: 76.34412630770323
+                      score_WinRate: 46.246518739771496
+                      score_maxDrawdown_pct: 53.594013888888895
+                      simpleReturn: 0.014914588534233886
+                    setting:
+                      BaseCurrency: HKD
+                      EndDate: 2020-02
+                      InitialCapital: '100000.0'
+                      Leverage: '1.0'
+                      StartDate: 2018-01
+                      TradeCost: '0.0'
+                      allowShortSell: 'True'
+                      dataset: '1440'
+                      isEconstatFeedon: 'False'
+                      isNewsFeedOn: 'False'
+                      isWeatherFeedOn: 'False'
+                      p_devnode: '20200412_123923_298000'
+                      strategyName: MA
+                      subscribeList:
+                        - HKXHKD
+                      user_parms:
+                        - MA_b0
+                        - MA_b1
+                        - MA_b2
+        '400':
+          description: Bad Request
+          headers:
+            Content-Type:
+              schema:
+                type: string
+              description: application/json
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  res:
+                    type: string
+                    description: "Method not allowed! \nBad input parameters!"
+                required:
+                  - res
+              examples:
+                Example:
+                  value:
+                    res: 'Bad input parameters!'
+        '':
+          headers:
+            Content-Type:
+              schema:
+                type: string
+              description: application/json
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  settings:
+                    type: string
+                    description: a JSON object specifying the strategy initial setting.
+                  performance:
+                    type: string
+                    description: a JSON object of strategy performance statistics
+                required:
+                  - settings
+                  - performance
+              examples:
+                Example:
+                  value:
+                    performance:
+                      Acdate: '2020-01-31 00:00:00'
+                      AnnualSharpe: 0.7166122085656221
+                      AnnualSortino: 0.8043711913536009
+                      AvgConsLoss: 1.8285714285714285
+                      AvgConsWin: 1.0857142857142856
+                      AvgDrawdownDuration: 15.583333333333334
+                      AvgPerDayPL: 47.36691666666674
+                      AvgPerTradePL: 170.52090000000027
+                      DailySharpe: 0.04514232596041397
+                      DailySortino: 0.050670622240628
+                      DownsideDailyStdDev: 0.011136366282438123
+                      MeanAnnualReturn: 0.1422002254757336
+                      MeanDailyReturn: 0.0005642866090306889
+                      MedianDailyReturn: 0
+                      OddRatio: 0.8947368421052632
+                      PlainDailyStdDev: 0.012500166906010137
+                      Q1DailyReturn: -0.0005070316675807596
+                      Q3DailyReturn: 0.005085581962306018
+                      Score_Total: 51.531357678855066
+                      TotalPnL: 1705.2090000000026
+                      TradableDay: 36
+                      TradeCnt: 10
+                      WinRate: 0.4722222222222222
+                      c95_1DVaR: -0.005069969039582655
+                      c99_1DVaR: -0.04679992901351671
+                      maxConsLossAmt: -6682.4619999999995
+                      maxConsLossDay: 9
+                      maxConsWinAmt: 3909.320000000007
+                      maxConsWinDay: 5
+                      maxDrawdownDuration: 33
+                      maxDrawdown_amt: 6682.4619999999995
+                      maxDrawdown_pct: 0.06682462
+                      numLossDay: 19
+                      numWinDay: 17
+                      score_AnnualSharpe: 67.1860566519164
+                      score_AvgDrawdownDuration: 65.81352833638026
+                      score_Rsquare: 0.003902148470089179
+                      score_TradePerDay: 76.34412630770323
+                      score_WinRate: 46.246518739771496
+                      score_maxDrawdown_pct: 53.594013888888895
+                      simpleReturn: 0.014914588534233886
+                    setting:
+                      BaseCurrency: HKD
+                      EndDate: 2020-02
+                      InitialCapital: '100000.0'
+                      Leverage: '1.0'
+                      StartDate: 2018-01
+                      TradeCost: '0.0'
+                      allowShortSell: 'True'
+                      dataset: '1440'
+                      isEconstatFeedon: 'False'
+                      isNewsFeedOn: 'False'
+                      isWeatherFeedOn: 'False'
+                      p_devnode: '20200412_123923_298000'
+                      strategyName: MA
+                      subscribeList:
+                        - HKXHKD
+                      user_parms:
+                        - MA_b0
+                        - MA_b1
+                        - MA_b2
+      operationId: get-query_strategy
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: Content-Type
+          description: application/json
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                api_key:
+                  type: string
+                  description: your API key
+                user:
+                  type: string
+                  description: your user id generated by ALGOGENE at system registration
+                runtime_id:
+                  type: string
+                  description: the strategy runtime ID
+                runmode:
+                  type: string
+                  description: 'strategy run mode, value either in ‘backtest’,’livetest’,’livetrade’'
+                acdate:
+                  type: string
+                  description: |-
+                    the accounting date to retrieve the details, value in “YYYY-MM-DD” format; omitted or
+                    empty will return the full history
+              required:
+                - api_key
+                - user
+                - runtime_id
+                - runmode
+                - acdate
+        description: ''
+    parameters: []
+  /query_strategy_pl:
+    get:
+      summary: History of Daily Cumulative P/L
+      tags:
+        - Strategy Details
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  count:
+                    type: integer
+                    description: length of returned result
+                  res:
+                    type: object
+                    required:
+                      - Acdate
+                      - TotalPL
+                      - …
+                    description: a list of JSON object sorted in ascending time
+                    properties:
+                      Acdate:
+                        type: string
+                        description: accounting date
+                      TotalPL:
+                        type: string
+                        description: sum of cumulative P/L of all traded instrument(s)
+                      …:
+                        type: string
+                        description: P/L breakdown for all other traded instrument(s)
+                required:
+                  - count
+                  - res
+              examples:
+                Example:
+                  value:
+                    count: 145
+                    res:
+                      - Acdate: '2019-01-02'
+                        HKXHKD: 0
+                        TotalPL: 0
+                      - Acdate: '2019-01-04'
+                        HKXHKD: 0
+                        TotalPL: 0
+                      - Acdate: '2019-12-11'
+                        HKXHKD: 1055.1
+                        TotalPL: 1055.1
+                      - Acdate: '2019-12-13'
+                        HKXHKD: 1020.1
+                        TotalPL: 1020.1
+                      - Acdate: '2019-12-16'
+                        HKXHKD: 1020.1
+                        TotalPL: 1020.1
+                      - Acdate: '2019-12-18'
+                        HKXHKD: 1020.1
+                        TotalPL: 1020.1
+                      - Acdate: '2019-12-20'
+                        HKXHKD: 1020.1
+                        TotalPL: 1020.1
+                      - Acdate: '2019-12-23'
+                        HKXHKD: 1020.1
+                        TotalPL: 1020.1
+          headers:
+            Content-Type:
+              schema:
+                type: string
+              description: application/json
+        '400':
+          description: Bad Request
+          headers:
+            Content-Type:
+              schema:
+                type: string
+              description: application/json
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  res:
+                    type: string
+                    description: "Method not allowed! \nBad input parameters!"
+                required:
+                  - res
+              examples:
+                Example:
+                  value:
+                    res: 'Bad input parameters!'
+      operationId: get-query_strategy_pl
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: Content-Type
+          description: application/json
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                api_key:
+                  type: string
+                  description: your API key
+                user:
+                  type: string
+                  description: your user id generated by ALGOGENE at system registration
+                runtime_id:
+                  type: string
+                  description: the strategy runtime ID
+                runmode:
+                  type: string
+                  description: 'strategy run mode, value either in ‘backtest’,’livetest’,’livetrade’'
+                acdate:
+                  type: string
+                  description: |-
+                    the accounting date to retrieve the details, value in “YYYY-MM-DD” format; omitted or
+                    empty will return the full history
+              required:
+                - api_key
+                - user
+                - runtime_id
+                - runmode
+                - acdate
+        description: ''
+  /query_strategy_pos:
+    get:
+      summary: History of Daily Outstanding Inventory
+      tags:
+        - Strategy Details
+      responses:
+        '200':
+          description: OK
+          headers:
+            Content-Type:
+              schema:
+                type: string
+              description: application/json
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  count:
+                    type: integer
+                    description: length of returned result
+                  res:
+                    type: object
+                    required:
+                      - Acdate
+                      - ...
+                    description: a list of JSON object sorted in ascending time
+                    properties:
+                      Acdate:
+                        type: string
+                        description: accounting date
+                      ...:
+                        type: string
+                        description: inventory breakdown for all traded instrument(s)
+                required:
+                  - count
+                  - res
+              examples:
+                Example:
+                  value:
+                    count: 145
+                    res:
+                      - Acdate: '2019-01-02'
+                        HKXHKD: 0
+                      - Acdate: '2019-01-04'
+                        HKXHKD: 0
+                      - Acdate: '2019-12-05'
+                        HKXHKD: -1
+                      - Acdate: '2019-12-09'
+                        HKXHKD: -1
+                      - Acdate: '2019-12-11'
+                        HKXHKD: -1
+                      - Acdate: '2019-12-13'
+                        HKXHKD: 0
+                      - Acdate: '2019-12-16'
+                        HKXHKD: 0
+                      - Acdate: '2019-12-18'
+                        HKXHKD: 0
+                      - Acdate: '2019-12-20'
+                        HKXHKD: 0
+                      - Acdate: '2019-12-23'
+                        HKXHKD: 0
+        '400':
+          description: Bad Request
+          headers:
+            Content-Type:
+              schema:
+                type: string
+              description: application/json
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  res:
+                    type: string
+                    description: "Method not allowed! \nBad input parameters!"
+                required:
+                  - res
+              examples:
+                Example:
+                  value:
+                    res: 'Bad input parameters!'
+      operationId: get-query_strategy_pos
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: Content-Type
+          description: application/json
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                api_key:
+                  type: string
+                  description: your API key
+                user:
+                  type: string
+                  description: your user id generated by ALGOGENE at system registration
+                runtime_id:
+                  type: string
+                  description: the strategy runtime ID
+                runmode:
+                  type: string
+                  description: 'strategy run mode, value either in ‘backtest’,’livetest’,’livetrade’'
+                acdate:
+                  type: string
+                  description: |-
+                    the accounting date to retrieve the details, value in “YYYY-MM-DD” format; omitted or
+                    empty will return the full history
+              required:
+                - api_key
+                - user
+                - runtime_id
+                - runmode
+                - acdate
+  /query_strategy_bal:
+    get:
+      summary: History of Daily Account Balance
+      tags:
+        - Strategy Details
+      responses:
+        '200':
+          description: OK
+          headers:
+            Content-Type:
+              schema:
+                type: string
+              description: application/json
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  count:
+                    type: integer
+                    description: length of returned result
+                  res:
+                    type: object
+                    description: a list of JSON object sorted in ascending time
+                    required:
+                      - Acdate
+                      - NAV
+                      - available_Balance
+                      - deposit
+                      - margin_Used
+                      - realized_PL
+                      - unrealized_PL
+                    properties:
+                      Acdate:
+                        type: string
+                        description: ' accounting date'
+                      NAV:
+                        type: string
+                        description: Net Asset Value as of accounting date
+                      available_Balance:
+                        type: string
+                        description: Available Balance as of accounting date
+                      deposit:
+                        type: string
+                        description: 'Cash inflow/outflow on accounting date, positive for in-flow and negative for out-flow'
+                      margin_Used:
+                        type: string
+                        description: outstanding margin usage as of accounting date
+                      realized_PL:
+                        type: string
+                        description: Cumulative realized P/L as of accounting date
+                      unrealized_PL:
+                        type: string
+                        description: Cumulative realized P/L as of accounting date
+                required:
+                  - count
+                  - res
+              examples:
+                Example:
+                  value:
+                    count: 145
+                    res:
+                      - Acdate: '2019-01-02'
+                        NAV: 100000
+                        available_Balance: 100000
+                        deposit: 0
+                        margin_Used: 0
+                        realized_PL: 0
+                        unrealized_PL: 0
+                      - Acdate: '2019-01-04'
+                        NAV: 100000
+                        available_Balance: 100000
+                        deposit: 0
+                        margin_Used: 0
+                        realized_PL: 0
+                        unrealized_PL: 0
+                      - Acdate: '2019-12-16'
+                        NAV: 101020.1
+                        available_Balance: 101020.1
+                        deposit: 0
+                        margin_Used: 0
+                        realized_PL: 0
+                        unrealized_PL: 1020.1
+                      - Acdate: '2019-12-18'
+                        NAV: 101020.1
+                        available_Balance: 101020.1
+                        deposit: 0
+                        margin_Used: 0
+                        realized_PL: 0
+                        unrealized_PL: 1020.1
+                      - Acdate: '2019-12-20'
+                        NAV: 101020.1
+                        available_Balance: 101020.1
+                        deposit: 0
+                        margin_Used: 0
+                        realized_PL: 0
+                        unrealized_PL: 1020.1
+                      - Acdate: '2019-12-23'
+                        NAV: 101020.1
+                        available_Balance: 101020.1
+                        deposit: 0
+                        margin_Used: 0
+                        realized_PL: 0
+                        unrealized_PL: 1020.1
+        '400':
+          description: Bad Request
+          headers:
+            Content-Type:
+              schema:
+                type: string
+              description: application/json
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  res:
+                    type: string
+                    description: "Method not allowed! \nBad input parameters!"
+                required:
+                  - res
+              examples:
+                Example:
+                  value:
+                    res: 'Bad input parameters!'
+      operationId: get-query_strategy_bal
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: Content-Type
+          description: application/json
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                api_key:
+                  type: string
+                  description: your API key
+                user:
+                  type: string
+                  description: your user id generated by ALGOGENE at system registration
+                runtime_id:
+                  type: string
+                  description: the strategy runtime ID
+                runmode:
+                  type: string
+                  description: 'strategy run mode, value either in ‘backtest’,’livetest’,’livetrade’'
+                acdate:
+                  type: string
+                  description: 'the accounting date to retrieve the details, value in “YYYY-MM-DD” format; omitted or empty will return the full history'
+              required:
+                - api_key
+                - user
+                - runtime_id
+                - runmode
+                - acdate
+  /query_strategy_param:
+    get:
+      summary: History of Daily User-Defined-Variables
+      tags:
+        - Strategy Details
+      responses:
+        '200':
+          description: OK
+          headers:
+            Content-Type:
+              schema:
+                type: string
+              description: application/json
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  count:
+                    type: integer
+                    description: length of returned result
+                  res:
+                    type: object
+                    required:
+                      - Acdate
+                      - ...
+                    description: a list of JSON object sorted in ascending time
+                    properties:
+                      Acdate:
+                        type: string
+                        description: accounting date
+                      ...:
+                        type: string
+                        description: other user-defined variables
+                required:
+                  - count
+                  - res
+              examples:
+                Example:
+                  value:
+                    count: 317
+                    res:
+                      - Acdate: '2018-01-04 00:00:00'
+                        MA_b0: 29850.585203758743
+                        MA_b1: 1.6925825997246537
+                        MA_b2: -0.982565438662998
+                        fastperiod: 7
+                        slowperiod: 50
+                        stoploss: 0.05
+                        takeprofit: 0.05
+                      - Acdate: '2018-01-08 00:00:00'
+                        MA_b0: 30332.571462415664
+                        MA_b1: 1.5623168483635732
+                        MA_b2: -0.8569310571330406
+                        fastperiod: 7
+                        slowperiod: 50
+                        stoploss: 0.05
+                        takeprofit: 0.05
+                      - Acdate: '2018-01-10 00:00:00'
+                        MA_b0: 30557.249673961935
+                        MA_b1: 1.5478608409385135
+                        MA_b2: -0.7384312526095704
+                        fastperiod: 7
+                        slowperiod: 50
+                        stoploss: 0.05
+                        takeprofit: 0.05
+                      - Acdate: '2020-02-21 00:00:00'
+                        MA_b0: 27078.60957203283
+                        MA_b1: 0.9679130020035266
+                        MA_b2: -0.09737451065220355
+                        fastperiod: 7
+                        slowperiod: 50
+                        stoploss: 0.05
+                        takeprofit: 0.05
+                      - Acdate: '2020-02-24 00:00:00'
+                        MA_b0: 27012.960265153473
+                        MA_b1: 0.9833455380758334
+                        MA_b2: -0.1141563221402843
+                        fastperiod: 7
+                        slowperiod: 50
+                        stoploss: 0.05
+                        takeprofit: 0.05
+                      - Acdate: '2020-02-26 00:00:00'
+                        MA_b0: 27058.065733719406
+                        MA_b1: 1.003164995430678
+                        MA_b2: -0.14734270435942237
+                        fastperiod: 7
+                        slowperiod: 50
+                        stoploss: 0.05
+                        takeprofit: 0.05
+        '400':
+          description: Bad Request
+          headers:
+            Content-Type:
+              schema:
+                type: string
+              description: application/json
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  res:
+                    type: string
+                    description: "Method not allowed! \nBad input parameters!"
+                required:
+                  - res
+              examples:
+                Example:
+                  value:
+                    res: 'Bad input parameters!'
+      operationId: get-query_strategy_param
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: Content-Type
+          description: application/json
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                api_key:
+                  type: string
+                  description: your API key
+                user:
+                  type: string
+                  description: your user id generated by ALGOGENE at system registration
+                runtime_id:
+                  type: string
+                  description: the strategy runtime ID
+                runmode:
+                  type: string
+                  description: 'strategy run mode, value either in ‘backtest’,’livetest’,’livetrade’'
+                acdate:
+                  type: string
+                  description: 'the accounting date to retrieve the details, value in “YYYY-MM-DD” format; omitted or empty will return the full history'
+              required:
+                - api_key
+                - user
+                - runtime_id
+                - runmode
+                - acdate
+        description: ''
+  /query_strategy_mkt:
+    get:
+      summary: History of Daily Market Closing Price
+      tags:
+        - Strategy Details
+      responses:
+        '200':
+          description: OK
+          headers:
+            Content-Type:
+              schema:
+                type: string
+              description: application/json
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  count:
+                    type: integer
+                    description: length of returned result
+                  res:
+                    type: object
+                    description: a list of JSON object sorted in ascending time
+                    required:
+                      - Acdate
+                      - ...
+                    properties:
+                      Acdate:
+                        type: string
+                        description: accounting date
+                      ...:
+                        type: string
+                        description: closing price for all traded instrument(s)
+                required:
+                  - count
+                  - res
+              examples:
+                Example:
+                  value:
+                    count: 145
+                    res:
+                      - Acdate: '2019-01-02'
+                        HKXHKD: 25380.969
+                      - Acdate: '2019-01-04'
+                        HKXHKD: 25988.0345
+                      - Acdate: '2019-12-18'
+                        HKXHKD: 27825.469
+                      - Acdate: '2019-12-20'
+                        HKXHKD: 28037.27
+                      - Acdate: '2019-12-23'
+                        HKXHKD: 28033.469
+        '400':
+          description: Bad Request
+          headers:
+            Content-Type:
+              schema:
+                type: string
+              description: application/json
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  res:
+                    type: string
+                    description: "Method not allowed! \nBad input parameters!"
+                required:
+                  - res
+              examples:
+                Example:
+                  value:
+                    res: 'Bad input parameters!'
+      operationId: get-query_strategy_mkt
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: Content-Type
+          description: application/json
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                api_key:
+                  type: string
+                  description: your API key
+                user:
+                  type: string
+                  description: your user id generated by ALGOGENE at system registration
+                runtime_id:
+                  type: string
+                  description: the strategy runtime ID
+                runmode:
+                  type: string
+                  description: 'strategy run mode, value either in ‘backtest’,’livetest’,’livetrade’'
+                acdate:
+                  type: string
+                  description: 'the accounting date to retrieve the details, value in “YYYY-MM-DD” format; omitted or empty will return the full history'
+              required:
+                - api_key
+                - user
+                - runtime_id
+                - runmode
+                - acdate
+        description: ''
+  /query_strategy_trade:
+    get:
+      summary: History of Transactions
+      tags:
+        - Strategy Details
+      responses:
+        '200':
+          description: OK
+          headers:
+            Content-Type:
+              schema:
+                type: string
+              description: application/json
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  count:
+                    type: integer
+                    description: ' length of returned result'
+                  res:
+                    type: object
+                    required:
+                      - timestamp
+                      - symbol
+                      - buysell
+                      - openclose
+                      - volume
+                      - price
+                      - trade_ID
+                      - order_ref
+                      - Remarks
+                      - market
+                      - product_type
+                      - broker
+                    description: a list of JSON object sorted in ascending time
+                    properties:
+                      timestamp:
+                        type: string
+                        description: 'the timestamp for an order execution, time zone in GMT+0'
+                      symbol:
+                        type: string
+                        description: the transaction security symbol
+                      buysell:
+                        type: string
+                        description: 1 for a buy order; -1 for a sell order
+                      openclose:
+                        type: string
+                        description: ‘open’ for opening a new order; ‘close’ for closing an existing order
+                      volume:
+                        type: string
+                        description: number of transacted share
+                      price:
+                        type: string
+                        description: the transacted price
+                      trade_ID:
+                        type: string
+                        description: the system ID for an transaction
+                      order_ref:
+                        type: string
+                        description: user specified reference/messages
+                      Remarks:
+                        type: string
+                        description: system generated messages
+                      market:
+                        type: string
+                        description: the asset market of the transacted security
+                      product_type:
+                        type: string
+                        description: the product type of the transacted security
+                      broker:
+                        type: string
+                        description: the broker/counterparty of the transaction
+                required:
+                  - count
+                  - res
+              examples:
+                Example:
+                  value:
+                    count: 2
+                    res:
+                      - Remarks: ''
+                        TradeCost: 0
+                        broker: DMA
+                        buysell: -1
+                        market: EQ
+                        openclose: close
+                        order_ref: '1'
+                        price: 28948
+                        product_type: CFD
+                        symbol: HKXHKD
+                        timestamp: '2018-06-25 08:00:00'
+                        trade_ID: 6
+                        volume: 1
+                      - Remarks: ''
+                        TradeCost: 0
+                        broker: DMA
+                        buysell: -1
+                        market: EQ
+                        openclose: close
+                        order_ref: '1'
+                        price: 28836
+                        product_type: CFD
+                        symbol: HKXHKD
+                        timestamp: '2018-06-25 16:00:00'
+                        trade_ID: 7
+                        volume: 1
+        '400':
+          description: Bad Request
+          headers:
+            Content-Type:
+              schema:
+                type: string
+              description: application/json
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  res:
+                    type: string
+                    description: "Method not allowed! \nBad input parameters!"
+                required:
+                  - res
+              examples:
+                Example:
+                  value:
+                    res: 'Bad input parameters!'
+      operationId: get-query_strategy_trade
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: Content-Type
+          description: application/json
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                api_key:
+                  type: string
+                  description: your API key
+                user:
+                  type: string
+                  description: your user id generated by ALGOGENE at system registration
+                runtime_id:
+                  type: string
+                  description: the strategy runtime ID
+                runmode:
+                  type: string
+                  description: 'strategy run mode, value either in ‘backtest’,’livetest’,’livetrade’'
+                acdate:
+                  type: string
+                  description: ' the accounting date to retrieve the details, value in “YYYY-MM-DD” format; omitted or empty will return the full history'
+              required:
+                - api_key
+                - user
+                - runtime_id
+                - runmode
+                - acdate
+  /query_strategy_model_resid:
+    get:
+      summary: History of Model Residuals
+      tags:
+        - Strategy Details
+      responses:
+        '200':
+          description: OK
+          headers:
+            Content-Type:
+              schema:
+                type: string
+              description: application/json
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  count:
+                    type: string
+                    description: length of returned result
+                  res:
+                    type: string
+                    description: a list of residual terms derived from model calibration
+                required:
+                  - count
+                  - res
+              examples:
+                Example:
+                  value:
+                    count: 100
+                    res:
+                      - -25.499236556872347
+                      - -26.891846639883624
+                      - -25.253238152547965
+                      - -28.97369699740284
+                      - -29.39838837856678
+                      - -24.89291498421153
+                      - 7.807305419311888
+                      - -7.329559231185158
+                      - -1.0073937576744356
+                      - -4.232898075617413
+                      - -4.539252751078493
+                      - -3.045913906647911
+        '400':
+          description: Bad Request
+          headers:
+            Content-Type:
+              schema:
+                type: string
+              description: application/json
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  res:
+                    type: string
+                    description: "Method not allowed! \nBad input parameters!"
+                required:
+                  - res
+              examples:
+                Example:
+                  value:
+                    res: 'Bad input parameters!'
+      operationId: get-query_strategy_model_resid
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: Content-Type
+          description: application/json
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                api_key:
+                  type: string
+                  description: your API key
+                user:
+                  type: string
+                  description: your user id generated by ALGOGENE at system registration
+                runtime_id:
+                  type: string
+                  description: the strategy runtime ID
+                runmode:
+                  type: string
+                  description: 'strategy run mode, value either in ‘backtest’,’livetest’,’livetrade’'
+                acdate:
+                  type: string
+                  description: 'the accounting date to retrieve the details, value in “YYYY-MM-DD” format'
+              required:
+                - api_key
+                - user
+                - runtime_id
+                - runmode
+                - acdate
+        description: ''
+  /query_strategy_trade_resid:
+    get:
+      summary: History of Daily Trading Residuals
+      tags:
+        - Strategy Details
+      responses:
+        '200':
+          description: OK
+          headers:
+            Content-Type:
+              schema:
+                type: string
+              description: application/json
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  count:
+                    type: integer
+                    description: length of returned result
+                  res:
+                    type: object
+                    required:
+                      - Acdate
+                      - residual
+                    description: a list of JSON object sorted in ascending time
+                    properties:
+                      Acdate:
+                        type: number
+                        description: accounting date
+                      residual:
+                        type: number
+                        description: the implicated trading residual
+                required:
+                  - count
+                  - res
+              examples:
+                Example:
+                  value:
+                    count: 294
+                    res:
+                      - Acdate: '2019-01-14 00:00:00'
+                        residual: -3.5905792683270192
+                      - Acdate: '2019-01-15 00:00:00'
+                        residual: -3.7961405528094474
+                      - Acdate: '2019-01-16 00:00:00'
+                        residual: -3.7961405528094474
+                      - Acdate: '2019-12-24 00:00:00'
+                        residual: 2.1262600456630025
+                      - Acdate: '2019-12-25 00:00:00'
+                        residual: 2.1262600456630025
+                      - Acdate: '2019-12-26 00:00:00'
+                        residual: 2.1262600456630025
+        '400':
+          description: Bad Request
+          headers:
+            Content-Type:
+              schema:
+                type: string
+              description: application/json
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  res:
+                    type: string
+                    description: "Method not allowed! \nBad input parameters!"
+                required:
+                  - res
+              examples:
+                Example:
+                  value:
+                    res: 'Bad input parameters!'
+      operationId: get-query_strategy_trade_resid
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: Content-Type
+          description: application/json
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                api_key:
+                  type: string
+                  description: your API key
+                user:
+                  type: string
+                  description: your user id generated by ALGOGENE at system registration
+                runtime_id:
+                  type: string
+                  description: the strategy runtime ID
+                runmode:
+                  type: string
+                  description: 'strategy run mode, value either in ‘backtest’,’livetest’,’livetrade’'
+                acdate:
+                  type: string
+                  description: 'the accounting date to retrieve the details, value in “YYYY-MM-DD” format'
+              required:
+                - api_key
+                - user
+                - runtime_id
+                - runmode
+                - acdate
+  /market_perf:
+    get:
+      summary: Market Index Performance
+      tags: []
+      responses:
+        '200':
+          description: OK
+          headers:
+            Content-Type:
+              schema:
+                type: string
+              description: application/json
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  res:
+                    type: string
+                    description: a JSON object of market performance statistics
+                required:
+                  - res
+              examples:
+                Example:
+                  value:
+                    res:
+                      Acdate: '2019-12-01 00:00:00'
+                      AnnualSharpe: -0.5352463891757715
+                      AnnualSortino: -0.5569541612704427
+                      AvgConsLoss: 0.7747747747747747
+                      AvgConsWin: 1.09009009009009
+                      AvgDrawdownDuration: 28.350299401197606
+                      AvgPerDayPL: -7.713937125748503
+                      AvgPerTradePL: -2576.455
+                      DailySharpe: -0.0337173532358187
+                      DailySortino: -0.035084814342479835
+                      DownsideDailyStdDev: 0.02788609224492236
+                      MeanAnnualReturn: -0.2465513490258927
+                      MeanDailyReturn: -0.0009783783691503678
+                      MedianDailyReturn: 0.0006486208438867269
+                      OddRatio: 1.1907894736842104
+                      PlainAnnStdDev: 0.4587999507924032
+                      PlainDailyStdDev: 0.029017057249648367
+                      Q1DailyReturn: -0.0033652790986905545
+                      Q3DailyReturn: 0.005136543364990143
+                      Score_Total: 43.50237663928803
+                      TotalPnL: -2576.455
+                      TradableDay: 334
+                      TradeCnt: 1
+                      WinRate: 0.5435435435435435
+                      c95_1DVaR: -0.014326307407720984
+                      c99_1DVaR: -0.032834748856140294
+                      maxConsLossAmt: -3040.4479999999994
+                      maxConsLossDay: 5
+                      maxConsWinAmt: 176.40049999999974
+                      maxConsWinDay: 7
+                      maxDrawdownDuration: 98
+                      maxDrawdown_amt: 3041.2479999999996
+                      maxDrawdown_pct: 0.5003494427999646
+                      numLossDay: 152
+                      numWinDay: 181
+                      score_AnnualSharpe: 36.929408452869374
+                      score_AvgDrawdownDuration: 51.41361793832419
+                      score_Rsquare: 10.997155865083608
+                      score_TradePerDay: 55.74245257283172
+                      score_WinRate: 55.966569286615766
+                      score_maxDrawdown_pct: 49.965055720003534
+                      simpleReturn: 0.0018440212380377297
+        '400':
+          description: Bad Request
+          headers:
+            Content-Type:
+              schema:
+                type: string
+              description: application/json
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  res:
+                    type: string
+                    description: "Method not allowed! \nBad input parameters!"
+                required:
+                  - res
+              examples:
+                Example:
+                  value:
+                    res: 'Bad input parameters!'
+      operationId: get-market_perf
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: Content-Type
+          description: application/json
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                api_key:
+                  type: string
+                user:
+                  type: string
+                symbol:
+                  type: object
+                  description: the market index name or underlying symbol name defined in section 1.1.
+                  required:
+                    - AUXAUD
+                    - CNXUSD
+                    - ETXEUR
+                    - FRXEUR
+                    - GRXEUR
+                    - HKXHKD
+                    - INXUSD
+                    - JPXJPY
+                    - NLXEUR
+                    - NSXUSD
+                    - SGXSGD
+                    - SPXUSD
+                    - TWXUSD
+                    - UKXGBP
+                    - US2000USD
+                    - US30USD
+                  properties:
+                    AUXAUD:
+                      type: string
+                      description: Australia ASX 200 Stock Index
+                    CNXUSD:
+                      type: string
+                      description: China A50 Stock Index
+                    ETXEUR:
+                      type: string
+                      description: Eurozone EUROSTOXX 50 Stock Index
+                    FRXEUR:
+                      type: string
+                      description: French CAC 40 Stock Index
+                    GRXEUR:
+                      type: string
+                      description: German DAX 30 Stock Index
+                    HKXHKD:
+                      type: string
+                      description: Hong Kong HSI Stock Index
+                    INXUSD:
+                      type: string
+                      description: India NIFTY 50 Stock Index
+                    JPXJPY:
+                      type: string
+                      description: Japanese NIKKEI 225 Stock Index
+                    NLXEUR:
+                      type: string
+                      description: Netherlands NL25 Stock Index
+                    NSXUSD:
+                      type: string
+                      description: US NASDAQ 100 Stock Index
+                    SGXSGD:
+                      type: string
+                      description: Singapore STI 30 Stock Index
+                    SPXUSD:
+                      type: string
+                      description: 'US S&P 500 Stock Index'
+                    TWXUSD:
+                      type: string
+                      description: Taiwan TWSE50 Stock Index
+                    UKXGBP:
+                      type: string
+                      description: UK FTSE 100 Stock Index
+                    US2000USD:
+                      type: string
+                      description: US small-cap Russell 2000 Index
+                    US30USD:
+                      type: string
+                      description: Dow Jones Industrial Average Index
+                startDate:
+                  type: integer
+                  description: 'the starting date for performance evaluation, value in “YYYY-MM-DD” format'
+                endDate:
+                  type: integer
+                  description: ' the end date for performance evaluation, value in “YYYY-MM-DD” format'
+              required:
+                - api_key
+                - user
+                - symbol
+                - startDate
+                - endDate
 components:
   schemas:
     data:
