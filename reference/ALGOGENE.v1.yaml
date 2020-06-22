@@ -1376,7 +1376,7 @@ paths:
         description: ''
       description: This endpoint is used to query a particular strategy settings and performance statistics.
     parameters: []
-  /query_strategy_pl:
+  /strategy_pl:
     get:
       summary: History of Daily Cumulative P/L
       tags:
@@ -1505,7 +1505,8 @@ paths:
                 - acdate
         description: ''
       description: This endpoint is used to query the history of daily cumulative profit/loss of a particular trading strategy.
-  /query_strategy_pos:
+    parameters: []
+  /strategy_pos:
     get:
       summary: History of Daily Outstanding Inventory
       tags:
@@ -1625,7 +1626,8 @@ paths:
                 - runmode
                 - acdate
       description: This endpoint is used to query the daily history of position of a particular trading strategy.
-  /query_strategy_bal:
+    parameters: []
+  /strategy_bal:
     get:
       summary: History of Daily Account Balance
       tags:
@@ -1785,7 +1787,8 @@ paths:
                 - runmode
                 - acdate
       description: This endpoint is used to query the history of account balance and margin usage of a particular trading strategy.
-  /query_strategy_param:
+    parameters: []
+  /strategy_param:
     get:
       summary: History of Daily User-Defined-Variables
       tags:
@@ -1932,7 +1935,8 @@ paths:
                 - acdate
         description: ''
       description: This endpoint is used to query the history of user-defined training parameters of a particular trading strategy.
-  /query_strategy_trade:
+    parameters: []
+  /strategy_trade:
     get:
       summary: History of Transactions
       tags:
@@ -2096,6 +2100,7 @@ paths:
                 - runmode
                 - acdate
       description: This endpoint is used to query the whole transaction history of a particular trading strategy.
+    parameters: []
   /strategy_model_resid:
     get:
       summary: History of Model Residuals
@@ -2307,7 +2312,7 @@ paths:
                 - runmode
       description: 'This endpoint is used to get the daily history of the user-defined trading entrance differential. '
     parameters: []
-  /market_perf:
+  /strategy_market_perf:
     get:
       summary: Market Index Performance
       tags:
@@ -2583,6 +2588,7 @@ paths:
                 - startDate
                 - endDate
       description: This endpoint is used to evaluate a simple buy-and-hold strategy for an underlying financial instrument.
+    parameters: []
 components:
   schemas:
     data:
