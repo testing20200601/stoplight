@@ -257,7 +257,7 @@ paths:
       tags:
         - Historical Data
     parameters: []
-  /list_all_instrument:
+  /list_instrument:
     get:
       summary: Available Financial Instruments
       responses:
@@ -463,9 +463,10 @@ paths:
       tags:
         - Contract Specification
       description: "This endpoint is used to list out all available financial instruments supported by ALGOGENE.\nThe example below only presents a subset. More financial instruments will be available at a later stage. "
-  /query_contract:
+    parameters: []
+  /meta_instrument:
     get:
-      summary: Details of Contract Specification
+      summary: Details of Financial Contract
       tags:
         - Contract Specification
       responses:
@@ -654,6 +655,7 @@ paths:
                 - instrument
         description: ''
       description: This endpoint is used to get the contract specification details of a particular financial instrument.
+    parameters: []
   /history_news:
     get:
       summary: News
@@ -2589,6 +2591,83 @@ paths:
                 - endDate
       description: This endpoint is used to evaluate a simple buy-and-hold strategy for an underlying financial instrument.
     parameters: []
+  /list_econs_series:
+    get:
+      summary: Available Economic Series
+      tags:
+        - Contract Specification
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+              examples:
+                Example:
+                  value:
+                    count: 73056
+                    res:
+                      - 2020RATIO020171
+                      - 2020RATIO020171
+                      - 2020RATIO037041
+                      - 2020RATIO037043
+                      - 2020RATIO037045
+                      - 2020RATIO037047
+                      - 2020RATIO037049
+                      - YOUN639NRMNN
+                      - YOUN639SRVON
+                      - YOUN639TRAD
+                      - YOUN639TRADN
+                      - YOUN639UR
+                      - YOUN639URN
+          headers:
+            Content-Type:
+              schema:
+                type: string
+              description: application/json
+        '400':
+          description: Bad Request
+          headers:
+            Content-Type:
+              schema:
+                type: string
+              description: application/json
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  res:
+                    type: string
+              examples:
+                Example:
+                  value:
+                    res: 'Bad input parameters!'
+      operationId: get-list_econs_series
+      description: 'This endpoint is used to query all economic series id available at ALGOGENE. Due to large data volume, the example below only presents a subset of series id. '
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: Content-Type
+          description: application/json
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                count:
+                  type: integer
+                  minimum: 0
+                  description: total number of economic series
+                res:
+                  description: 'the list of economic series id '
+                  type: array
+                  items:
+                    type: string
 components:
   schemas:
     data:
