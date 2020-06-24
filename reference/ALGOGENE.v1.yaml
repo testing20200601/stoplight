@@ -3117,13 +3117,13 @@ paths:
                     type: string
                     description: remarks
                   popularity:
-                    type: string
                     description: popularity of the economic statistics
+                    type: number
                   obs_date:
                     type: string
                     description: observation date of the economic statistics
                   obs_val:
-                    type: string
+                    type: number
                     description: observation value of the economic statistics
                 required:
                   - series_id
@@ -3142,7 +3142,7 @@ paths:
                     units: Ratio
                     units_short: Ratio
                     seasonal_adj: NSA
-                    popularity: '75'
+                    popularity: 75
                     group_popularity: ''
                     obs_start: '2005-01-01'
                     obs_end: '2019-10-01'
@@ -3158,7 +3158,7 @@ paths:
                       - households
                       - debt
                     date: '2019-10-01'
-                    value: '76.2937755292674'
+                    value: 76.2937755292674
         '400':
           description: Bad Request
           headers:
@@ -3200,6 +3200,144 @@ paths:
               required:
                 - user
                 - api_key
+  /realtime_weather:
+    get:
+      summary: Weather
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  timestamp:
+                    type: string
+                    description: latest captured timestamp
+                  city:
+                    type: string
+                    description: city name
+                  country:
+                    type: string
+                    description: the country of the city
+                  coord_lat:
+                    type: number
+                    description: "latitude of the city's geographic coordinate   "
+                  coord_lon:
+                    type: number
+                    description: "longitude of the city's geographic coordinate   "
+                  surnise:
+                    type: string
+                    description: sunrise time
+                  sunset:
+                    type: string
+                    description: estimated sunset time
+                  visibility:
+                    type: number
+                    description: 'visibility '
+                  pressure:
+                    type: number
+                    description: air pressure
+                  temperature_min:
+                    type: number
+                    description: minimum temperature during the day
+                  temperature_max:
+                    type: number
+                    description: maximum temperature during the day
+                  temperature:
+                    type: number
+                    description: current temperature
+                  humidity:
+                    type: number
+                    description: 'humidity in %'
+                  wind_speed:
+                    type: number
+                    description: 'wind speed, km/h'
+                  wind_degree:
+                    type: number
+                    description: wind degree
+                  weather:
+                    type: string
+                    description: weather description
+                  weather_desc:
+                    type: string
+                    description: weather long description
+                  clouds:
+                    type: number
+                    description: cloud density
+              examples:
+                Example:
+                  value:
+                    res:
+                      city: New York
+                      clouds: 75
+                      coord_lat: 40.71
+                      coord_lon: -74.01
+                      country: US
+                      humidity: 65
+                      pressure: 1006
+                      sunrise: '2020-06-24 09:25:55.000000'
+                      sunset: '2020-06-25 00:31:07.000000'
+                      temperature: 300.31
+                      temperature_max: 301.15
+                      temperature_min: 299.15
+                      timestamp: '2020-06-24 15:13:03.000000'
+                      visibility: 16093
+                      weather: Clouds
+                      weather_desc: broken clouds
+                      wind_degree: 250
+                      wind_speed: 3.6
+          headers:
+            Content-Type:
+              schema:
+                type: string
+              description: application/json
+        '400':
+          description: Bad Request
+          headers:
+            Content-Type:
+              schema:
+                type: string
+              description: application/json
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  res:
+                    type: string
+              examples:
+                Example:
+                  value:
+                    res: 'Bad input parameters!'
+      operationId: get-realtime_weather
+      description: This endpoint is used to get the current weather information of any given city in the world.
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: Content-Type
+          description: application/json
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user:
+                  type: string
+                  description: your user id generated by ALGOGENE at system registration
+                api_key:
+                  type: string
+                  description: you API key
+                city:
+                  type: string
+                  description: "any city name in the world, including but not limited to 'Baghdad', 'Bangkok', 'Beijing', 'Berlin', 'Bloemfontein', 'Boston', 'Brasilia', 'Cairo', 'Cape Town', 'Chengdu', 'Chicago', 'Chongqing', 'Columbia', 'Hanoi', 'Havana', 'Hong Kong', 'Jakarta', 'Kinshasa', 'London', 'Los Angeles', 'Madrid', 'Malaysia', 'Manila', 'Moscow', 'New Delhi', 'New York City', 'Osaka', 'Ottawa', 'Paris', 'Perth', 'Phnom Penh', 'Pretoria', 'Pyongyang', 'Rabat', 'Reykjavik', 'Rome', 'San Diego', 'Seoul', 'Shanghai', 'Singapore', 'Sudan', 'Taipei', 'Tokyo', 'Toronto', 'Ulaanbaatar', 'Washington', 'Xinjiang', etc"
+              required:
+                - user
+                - api_key
+                - city
 components:
   schemas:
     data:
