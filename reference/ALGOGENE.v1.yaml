@@ -2829,18 +2829,24 @@ paths:
                           description: time zone in UTC+0
                         bidPrice:
                           type: number
+                          description: bid price
                         askPrice:
                           type: number
+                          description: ask price
                         bidSize:
                           type: number
+                          description: bid volume size
                         askSize:
                           type: number
+                          description: ask volume size
                         bidOrderBook:
                           type: array
+                          description: bid order book
                           items:
                             type: number
                         askOrderBook:
                           type: array
+                          description: ask order book
                           items:
                             type: number
                       required:
@@ -2926,6 +2932,144 @@ paths:
                   symbols: 'HKXHKD,SPXUSD'
                   user: demo1
                   api_key: '1234567890'
+  /realtime_news:
+    get:
+      summary: News
+      tags: []
+      responses:
+        '200':
+          description: OK
+          headers:
+            Content-Type:
+              schema:
+                type: string
+              description: application/json
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  authors:
+                    type: array
+                    description: the list of authors for the News
+                    items:
+                      type: string
+                  category:
+                    type: string
+                    description: the category of the News
+                  link:
+                    type: string
+                    description: the original url of the News
+                  movies:
+                    type: array
+                    description: the list of embeded videos in the News
+                    items:
+                      type: string
+                  published:
+                    type: string
+                    description: 'the published datetime, timezone in UTC+0'
+                  source:
+                    type: string
+                    description: the source of the News
+                  text:
+                    type: string
+                    description: the News content
+                  title:
+                    type: string
+                    description: the News headline
+                  top_image:
+                    type: string
+                    description: the top image embeded in the News
+                required:
+                  - authors
+                  - category
+                  - link
+                  - movies
+                  - published
+                  - source
+                  - text
+                  - title
+                  - top_image
+              examples:
+                Example:
+                  value:
+                    res:
+                      authors: '[]'
+                      category: FINANCE
+                      link: 'https://news.rthk.hk/rthk/ch/component/k2/1533835-20200624.htm'
+                      movies: '[]'
+                      published: '2020-06-24 12:37:48.000000'
+                      source: RTHK
+                      text: |-
+                        波司登料客戶羽絨庫存高或影響下財年批發業務增長
+
+                        李臻昇報道
+
+                        波司登首席財務官兼副總裁朱高峰說，雖然集團售賣羽絨在4-6月是淡季，但有因應市場推出春夏服飾，而集團在「618購物節」中的銷售增長達1倍以上，都帶動到期內銷售增長。
+
+
+
+                        朱高峰提到，疫情令客戶的羽絨庫存上升，要到明年才可以消化，但目前未有計劃加大促銷力度，預期集團在下一個財政年度的批發業務會因為庫存高而影響增長。
+
+
+
+                        提到有學者指疫情可能在下半年再爆發，朱高峰認為，難以預測會否因為有關因素影響秋冬旺季銷售。但他承認，疫情可能影響部分銷售場，集團已經有預案推進數碼化轉型，對全年銷售增長有信心。他又指，目前環境下，集團開新店會傾向審慎。
+                      title: 波司登料客戶羽絨庫存高或影響下財年批發業務增長
+                      top_image: 'https://newsstatic.rthk.hk/images/mfile_1533835_1_L_20200624123748.jpg'
+        '400':
+          description: Bad Request
+          headers:
+            Content-Type:
+              schema:
+                type: string
+              description: application/json
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  res:
+                    type: string
+              examples:
+                Example:
+                  value:
+                    res: 'Bad input parameters!'
+      operationId: get-realtime_news
+      description: This endpoint is used to get the latest News data feed.
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: Content-Type
+          description: application/json
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user:
+                  type: string
+                  description: your user id generated by ALGOGENE at system registration
+                api_key:
+                  type: string
+                  description: your API key
+                lang:
+                  type: string
+                  description: |-
+                    language of News to retrieve, language codes follows [ISO 639-1 codes], available values
+                    include
+                    ‘af','ar','bg','bn','ca','cs','cy','da','de','el','en','es','et','fa','fi','fr','gu','he','hi','hr','hu','id','it','ja','kn','ko
+                    ','lt','lv','mk','ml','mr','ne','nl','no','pa','pl','pt','ro','ru','sk','sl','so','sq','sv','sw','ta','te','th','tl','tr','uk','
+                    ur','vi','zh-cn','zh-tw'
+              required:
+                - user
+                - api_key
+                - lang
+          application/xml:
+            schema:
+              type: object
+              properties: {}
 components:
   schemas:
     data:
