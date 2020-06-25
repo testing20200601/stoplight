@@ -3537,7 +3537,8 @@ paths:
   /history_weather:
     get:
       summary: Weather
-      tags: []
+      tags:
+        - Historical Data
       responses:
         '200':
           description: OK
@@ -3758,6 +3759,207 @@ paths:
                 - user
                 - api_key
                 - city
+                - starttime
+                - endtime
+  /history_econs_calendar:
+    get:
+      summary: Economic Calendar
+      tags:
+        - Historical Data
+      responses:
+        '200':
+          description: OK
+          headers:
+            Content-Type:
+              schema:
+                type: string
+              description: application/json
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  count:
+                    type: number
+                    description: number of records returned
+                  res:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        timestamp:
+                          type: string
+                          description: 'captured timestamp of the calendar event, time zone in UTC+0'
+                        eventid:
+                          type: string
+                          description: event id of the calendar event
+                        currency:
+                          type: string
+                          description: the impacted curreny/country of the calendar event
+                        impact:
+                          type: string
+                          description: the estimated impact of the calendar event
+                        nevent:
+                          type: string
+                          description: the description of the calendar event
+                        actual:
+                          type: string
+                          description: actual figure of the calendar event
+                        forecast:
+                          type: string
+                          description: forecast figure of the calendar event
+                        previous:
+                          type: string
+                          description: previous figure of the calendar event
+                        unit:
+                          type: string
+                          description: the unit of the reported figures
+                      required:
+                        - timestamp
+                        - eventid
+                        - currency
+                        - impact
+                        - nevent
+                        - actual
+                        - forecast
+                        - previous
+                        - unit
+                required:
+                  - count
+                  - res
+              examples:
+                Example:
+                  value:
+                    count: 9
+                    res:
+                      - actual: 45.7
+                        currency: EUR
+                        eventid: '111409'
+                        forecast: 44
+                        impact: Low Impact Expected
+                        nevent: Spanish Manufacturing PMI
+                        previous: 50.4
+                        timestamp: '2020-04-01 08:15:00'
+                        unit: ''
+                      - actual: 43.7
+                        currency: CHF
+                        eventid: '111951'
+                        forecast: 42.3
+                        impact: Low Impact Expected
+                        nevent: Manufacturing PMI
+                        previous: 49.5
+                        timestamp: '2020-04-01 08:30:00'
+                        unit: ''
+                      - actual: 40.3
+                        currency: EUR
+                        eventid: '111408'
+                        forecast: 41.1
+                        impact: Low Impact Expected
+                        nevent: Italian Manufacturing PMI
+                        previous: 48.7
+                        timestamp: '2020-04-01 08:45:00'
+                        unit: ''
+                      - actual: ''
+                        currency: EUR
+                        eventid: '111406'
+                        forecast: 42.9
+                        impact: Low Impact Expected
+                        nevent: French Final Manufacturing PMI
+                        previous: 42.9
+                        timestamp: '2020-04-01 08:50:00'
+                        unit: ''
+                      - actual: ''
+                        currency: EUR
+                        eventid: '111407'
+                        forecast: 45.6
+                        impact: Low Impact Expected
+                        nevent: German Final Manufacturing PMI
+                        previous: 45.7
+                        timestamp: '2020-04-01 08:55:00'
+                        unit: ''
+                      - actual: ''
+                        currency: EUR
+                        eventid: '111404'
+                        forecast: 44.7
+                        impact: Low Impact Expected
+                        nevent: Final Manufacturing PMI
+                        previous: 44.8
+                        timestamp: '2020-04-01 09:00:00'
+                        unit: ''
+                      - actual: 9.7
+                        currency: EUR
+                        eventid: '111732'
+                        forecast: 10
+                        impact: Low Impact Expected
+                        nevent: Italian Monthly Unemployment Rate
+                        previous: 9.8
+                        timestamp: '2020-04-01 09:00:00'
+                        unit: '%'
+                      - actual: 47.8
+                        currency: GBP
+                        eventid: '111405'
+                        forecast: 47.1
+                        impact: Low Impact Expected
+                        nevent: Final Manufacturing PMI
+                        previous: 48
+                        timestamp: '2020-04-01 09:30:00'
+                        unit: ''
+                      - actual: 7.3
+                        currency: EUR
+                        eventid: '112598'
+                        forecast: 7.4
+                        impact: Low Impact Expected
+                        nevent: Unemployment Rate
+                        previous: 7.4
+                        timestamp: '2020-04-01 10:00:00'
+                        unit: '%'
+        '400':
+          description: Bad Request
+          headers:
+            Content-Type:
+              schema:
+                type: string
+              description: application/json
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  res:
+                    type: string
+              examples:
+                Example:
+                  value:
+                    res: 'Bad input parameters!'
+      operationId: get-history_econs_calendar
+      description: 'This endpoint is used to get historical economic calendar data, such as the coming holiday/statistics release time/president speech/etc. '
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: Content-Type
+          description: application/json
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user:
+                  type: string
+                  description: your user id generated by ALGOGENE at system registration
+                api_key:
+                  type: string
+                  description: your API key
+                starttime:
+                  type: string
+                  description: 'the data to retrive after this timestamp '
+                endtime:
+                  type: string
+                  description: 'the data to retrive before this timestamp '
+              required:
+                - user
+                - api_key
                 - starttime
                 - endtime
 components:
