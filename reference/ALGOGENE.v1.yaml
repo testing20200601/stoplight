@@ -247,7 +247,15 @@ paths:
                 - interval
                 - timestamp
                 - instrument
-            examples: {}
+            examples:
+              Example:
+                value:
+                  user: demo
+                  api_key: '1234567890'
+                  instrument: ZARJPY
+                  count: 3
+                  timestamp: '2018-10-30 00:00:00'
+                  interval: D
           text/html:
             schema:
               type: object
