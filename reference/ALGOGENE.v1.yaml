@@ -1804,23 +1804,23 @@ paths:
                         type: string
                         description: ' accounting date'
                       NAV:
-                        type: string
                         description: Net Asset Value as of accounting date
+                        type: number
                       available_Balance:
-                        type: string
                         description: Available Balance as of accounting date
+                        type: number
                       deposit:
-                        type: string
                         description: 'Cash inflow/outflow on accounting date, positive for in-flow and negative for out-flow'
+                        type: number
                       margin_Used:
-                        type: string
                         description: outstanding margin usage as of accounting date
+                        type: number
                       realized_PL:
-                        type: string
                         description: Cumulative realized P/L as of accounting date
+                        type: number
                       unrealized_PL:
-                        type: string
                         description: Cumulative realized P/L as of accounting date
+                        type: number
                 required:
                   - count
                   - res
@@ -2103,6 +2103,7 @@ paths:
                     description: ' length of returned result'
                   res:
                     type: object
+                    description: a list of JSON object sorted in ascending time
                     required:
                       - timestamp
                       - symbol
@@ -2112,39 +2113,42 @@ paths:
                       - price
                       - trade_ID
                       - order_ref
-                      - Remarks
+                      - channel
                       - market
                       - product_type
                       - broker
-                    description: a list of JSON object sorted in ascending time
+                      - TradeCost
+                      - realized_pl
+                      - ticket_id
+                      - unrealized_pl
                     properties:
                       timestamp:
                         type: string
-                        description: 'the timestamp for an order execution, time zone in GMT+0'
+                        description: 'the timestamp for an order execution, format in ''YYYY-MM-DD hh:mm:ss.ffffff'', time zone in GMT+0'
                       symbol:
                         type: string
                         description: the transaction security symbol
                       buysell:
-                        type: string
+                        type: integer
                         description: 1 for a buy order; -1 for a sell order
                       openclose:
                         type: string
                         description: ‘open’ for opening a new order; ‘close’ for closing an existing order
                       volume:
-                        type: string
                         description: number of transacted share
+                        type: number
                       price:
-                        type: string
+                        type: number
                         description: the transacted price
                       trade_ID:
-                        type: string
                         description: the system ID for an transaction
+                        type: integer
                       order_ref:
                         type: string
                         description: user specified reference/messages
-                      Remarks:
+                      channel:
                         type: string
-                        description: system generated messages
+                        description: 'the channel to place the trade, returned value in ''web'',''api'',''manual'''
                       market:
                         type: string
                         description: the asset market of the transacted security
@@ -2154,6 +2158,18 @@ paths:
                       broker:
                         type: string
                         description: the broker/counterparty of the transaction
+                      TradeCost:
+                        type: number
+                        description: 'the amount of transaction cost, unit in account currency'
+                      realized_pl:
+                        type: number
+                        description: 'the realized profit/loss for a closed order, unit in account currency'
+                      ticket_id:
+                        type: string
+                        description: the transaction ID generated from broker
+                      unrealized_pl:
+                        type: number
+                        description: 'the unrealized profit/loss for an outstanding trade, unit in account currency'
                 required:
                   - count
                   - res
@@ -2162,32 +2178,38 @@ paths:
                   value:
                     count: 2
                     res:
-                      - Remarks: ''
-                        TradeCost: 0
-                        broker: DMA
-                        buysell: -1
-                        market: EQ
-                        openclose: close
-                        order_ref: '1'
-                        price: 28948
-                        product_type: CFD
-                        symbol: HKXHKD
-                        timestamp: '2018-06-25 08:00:00'
-                        trade_ID: 6
-                        volume: 1
-                      - Remarks: ''
-                        TradeCost: 0
-                        broker: DMA
-                        buysell: -1
-                        market: EQ
-                        openclose: close
-                        order_ref: '1'
-                        price: 28836
-                        product_type: CFD
-                        symbol: HKXHKD
-                        timestamp: '2018-06-25 16:00:00'
-                        trade_ID: 7
-                        volume: 1
+                      - TradeCost: 0
+                        broker: ALGOGENE
+                        buysell: 1
+                        channel: web
+                        market: FX
+                        openclose: open
+                        order_ref: ''
+                        price: 1.028
+                        product_type: SPOT
+                        realized_pl: '0.0'
+                        symbol: EURUSD
+                        ticket_id: '399'
+                        timestamp: '2020-09-14 10:37:52.309000'
+                        trade_ID: 399
+                        unrealized_pl: '0.0'
+                        volume: 1000
+                      - TradeCost: 0
+                        broker: ALGOGENE
+                        buysell: 1
+                        channel: api
+                        market: FX
+                        openclose: open
+                        order_ref: my new reference
+                        price: 1.086
+                        product_type: SPOT
+                        realized_pl: '0.0'
+                        symbol: EURUSD
+                        ticket_id: '403'
+                        timestamp: '2020-09-14 17:30:52.309000'
+                        trade_ID: 403
+                        unrealized_pl: '0.0'
+                        volume: 1000
         '400':
           description: Bad Request
           headers:
