@@ -509,9 +509,6 @@ paths:
               schema:
                 type: object
                 properties:
-                  count:
-                    type: integer
-                    description: length of returned results
                   res:
                     type: object
                     description: a JSON object for the financial contract specification
@@ -520,12 +517,11 @@ paths:
                       - market
                       - producttype
                       - settleCurrency
-                      - symbol_OANDA
-                      - ib
+                      - description
                     properties:
                       contractSize:
-                        type: string
                         description: the number of share per 1 lot
+                        type: integer
                       market:
                         type: string
                         description: |-
@@ -537,102 +533,20 @@ paths:
                       settleCurrency:
                         type: string
                         description: the currency used for settlement
-                      symbol_OANDA:
+                      description:
                         type: string
-                        description: the corresponding contract name from OANDA
-                      ib:
-                        type: object
-                        description: the corresponding contract spec from Interactive Broker
-                        required:
-                          - conId
-                          - currency
-                          - localSymbol
-                          - minTick
-                          - multiplier
-                          - priceMagnifier
-                          - secType
-                          - symbol
-                          - underConId
-                          - contract
-                        properties:
-                          conId:
-                            type: string
-                            description: the contract ID
-                          currency:
-                            type: string
-                            description: the underlying settlement currency
-                          localSymbol:
-                            type: string
-                            description: the underlying contract symbol
-                          minTick:
-                            type: string
-                            description: the minimum price change for the underlying
-                          multiplier:
-                            type: string
-                            description: contract size multiplier per 1 lot
-                          priceMagnifier:
-                            type: string
-                            description: price magnifier per 1 point movement
-                          secType:
-                            type: string
-                            description: ' the contract security type, available values ‘CASH’, ‘SEK’, ‘FUT’, ‘OPT’'
-                          symbol:
-                            type: string
-                            description: contract symbol for the risky leg
-                          underConId:
-                            type: string
-                            description: the underlying contract ID
-                          contract:
-                            type: object
-                            description: a list of JSON object for available FUT/OPT contracts
-                            required:
-                              - conId
-                              - expiry
-                              - localSymbol
-                            properties:
-                              conId:
-                                type: string
-                                description: the FUT/OPT contract ID
-                              expiry:
-                                description: ' the expiry date for FUT/OPT contract'
-                                type: string
-                              localSymbol:
-                                type: string
-                                description: contract symbol for FUT/OPT contract
-                              right:
-                                type: string
-                                description: ' the option type for OPT contract, value either in ‘C’ or ‘P’'
-                              strike:
-                                type: number
-                                description: the option exercise strike price
+                        description: description of the instrument
                 required:
-                  - count
                   - res
               examples:
                 Example:
                   value:
                     res:
                       contractSize: 100000
-                      ib:
-                        conId: 15016059
-                        contract:
-                          - conId: ''
-                            expiry: ''
-                            localSymbol: ''
-                            right: ''
-                            strike: 0
-                        currency: JPY
-                        localSymbol: USD.JPY
-                        minTick: 0.005
-                        multiplier: 1
-                        priceMagnifier: 1
-                        secType: CASH
-                        symbol: USD
-                        underConId: 0
+                      description: US Dollar VS Japanese Yen
                       market: FX
                       producttype: SPOT
                       settleCurrency: JPY
-                      symbol_OANDA: USD_JPY
           headers:
             Content-Type:
               schema:
@@ -905,10 +819,10 @@ paths:
                 type: object
                 properties:
                   numOfBranch:
-                    type: string
+                    type: integer
                     description: Total number of strategy branch developed by user
                   res:
-                    type: string
+                    type: object
                     description: |-
                       a JSON object for the full strategy development branch history (in parent, child, sibling
                       structure)
@@ -1090,11 +1004,185 @@ paths:
                 type: object
                 properties:
                   settings:
-                    type: string
+                    type: object
                     description: a JSON object specifying the strategy initial setting.
+                    required:
+                      - BaseCurrency
+                      - strategyName
+                      - subscribeList
+                      - allowShortSell
+                      - isEconstatFeedon
+                      - isNewsFeedOn
+                      - isWeatherFeedOn
+                    properties:
+                      BaseCurrency:
+                        type: string
+                        description: the account currency base
+                      strategyName:
+                        type: string
+                        description: your specified strategy name
+                      subscribeList:
+                        type: array
+                        description: 'the list of trading instruments '
+                        items:
+                          type: string
+                      allowShortSell:
+                        type: boolean
+                        description: specify whether your strategy or account can perform short-selling
+                      isEconstatFeedon:
+                        type: boolean
+                        description: specify whether your strategy listening on data stream of economic statistics
+                      isNewsFeedOn:
+                        type: boolean
+                        description: specify whether your strategy listening on data stream of News
+                      isWeatherFeedOn:
+                        type: boolean
+                        description: specify whether your strategy listening on data stream of weather
                   performance:
-                    type: string
-                    description: ' a JSON object of strategy performance statistics'
+                    description: a JSON object of strategy performance statistics
+                    type: object
+                    required:
+                      - Acdate
+                      - AnnualSharpe
+                      - AnnualSortino
+                      - AvgConsLoss
+                      - AvgConsWin
+                      - AvgDrawdownDuration
+                      - AvgPerDayPL
+                      - AvgPerTradePL
+                      - DailySharpe
+                      - DailySortino
+                      - DownsideDailyStdDev
+                      - MeanAnnualReturn
+                      - MeanDailyReturn
+                      - MedianDailyReturn
+                      - OddRatio
+                      - PlainDailyStdDev
+                      - Q1DailyReturn
+                      - Q3DailyReturn
+                      - Score_Total
+                      - TotalPnL
+                      - TradableDay
+                      - TradeCnt
+                      - WinRate
+                      - c95_1DVaR
+                      - c99_1DVaR
+                      - maxConsLossAmt
+                      - maxConsLossDay
+                      - maxConsWinAmt
+                      - maxConsWinDay
+                      - maxDrawdownDuration
+                      - maxDrawdown_amt
+                      - maxDrawdown_pct
+                      - numLossDay
+                      - numWinDay
+                      - PlainAnnStdDev
+                    properties:
+                      Acdate:
+                        type: string
+                        description: 'the accounting date where performance is evaluated upto '
+                      AnnualSharpe:
+                        type: number
+                        description: Annualized Sharpe ratio
+                      AnnualSortino:
+                        type: number
+                        description: Annualized Sortino ratio
+                      AvgConsLoss:
+                        type: number
+                        description: Average amount of consecutive loss
+                      AvgConsWin:
+                        type: number
+                        description: Average amount of consecutive win
+                      AvgDrawdownDuration:
+                        type: number
+                        description: Average Drawdown Duration in day
+                      AvgPerDayPL:
+                        type: number
+                        description: Average daily profit/loss
+                      AvgPerTradePL:
+                        type: number
+                        description: Average profit/loss per trade
+                      DailySharpe:
+                        type: number
+                        description: Daily Sharpe ratio
+                      DailySortino:
+                        type: number
+                        description: Daily Sortino ratio
+                      DownsideDailyStdDev:
+                        type: number
+                        description: Daily down-side volatility
+                      MeanAnnualReturn:
+                        type: number
+                        description: Average of annual return
+                      MeanDailyReturn:
+                        type: number
+                        description: Average of daily return
+                      MedianDailyReturn:
+                        type: number
+                        description: Median of daily return
+                      OddRatio:
+                        type: number
+                        description: odd ratio
+                      PlainDailyStdDev:
+                        type: number
+                        description: daily volatility
+                      Q1DailyReturn:
+                        type: number
+                        description: 1st quantile of daily return
+                      Q3DailyReturn:
+                        description: 3rd quantile of daily return
+                        type: number
+                      Score_Total:
+                        type: number
+                        description: overall strategy score
+                      TotalPnL:
+                        type: number
+                        description: total amount of profit/loss
+                      TradableDay:
+                        type: integer
+                        description: number of tradable day during the trading period
+                      TradeCnt:
+                        type: integer
+                        description: total number of trades during the trading period
+                      WinRate:
+                        type: number
+                        description: strategy winning rate
+                      c95_1DVaR:
+                        type: number
+                        description: 95% 1-day value-at-risk
+                      c99_1DVaR:
+                        type: number
+                        description: 99% 1-day value-at-risk
+                      maxConsLossAmt:
+                        type: number
+                        description: maximum consecutive loss amount
+                      maxConsLossDay:
+                        type: integer
+                        description: longest number of day for consecutive loss
+                      maxConsWinAmt:
+                        type: number
+                        description: maximum consecutive win amount
+                      maxConsWinDay:
+                        type: number
+                        description: longest number of day for consecutive winning
+                      maxDrawdownDuration:
+                        type: integer
+                        description: longest drawdown duration
+                      maxDrawdown_amt:
+                        type: number
+                        description: maximum drawdown amount
+                      maxDrawdown_pct:
+                        type: number
+                        description: maximum drawdown in percentage
+                      numLossDay:
+                        type: number
+                        description: total number of lossing day during the trading period
+                      numWinDay:
+                        description: total number of winning day during the trading period
+                        type: number
+                      PlainAnnStdDev:
+                        type: number
+                        description: Annualized volatility
                 required:
                   - settings
                   - performance
@@ -2667,8 +2755,8 @@ paths:
                 type: object
                 properties:
                   count:
-                    type: string
                     description: total number of available economic series
+                    type: integer
                   res:
                     type: array
                     description: the list of available series id
