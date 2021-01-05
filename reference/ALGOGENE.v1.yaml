@@ -3036,6 +3036,13 @@ paths:
                 symbols:
                   type: string
                   description: 'a list of financial symbols separated by '','''
+                broker:
+                  type: string
+                  description: |-
+                    Get the realtime market data quoted by a specific broker. 
+                    Current supported values included 'diginex','exness','ib','ig','oanda',
+
+                    If this parameter is missing, the system will return the latest market data among all availiable brokers.
               required:
                 - user
                 - api_key
@@ -5147,7 +5154,7 @@ paths:
                   description: ALGOGENE account ID
                 broker_name:
                   type: string
-                  description: 'the broker name to be connected, values either in ''ig'',''oanda'','
+                  description: 'the broker name to be connected, values either in ''ig'',''oanda'',''exness'''
                 broker_api:
                   type: string
                   description: the API key generated from your broker.
@@ -5158,20 +5165,28 @@ paths:
                   type: string
                   description: |-
                     For broker_name = 'ig', accepted value 'CFD','MT4'. 
+                    For broker_name = 'exness', accepted value 'MT5'. 
 
                     It is not required for other brokers.
                 broker_user:
                   type: string
                   description: |-
                     For broker_name = 'ig', it is the user name connecting your broker account. 
+                    For broker_name = 'exness', it is your MT5 user name.
 
                     It is not required for other brokers.
                 broker_pwd:
                   type: string
                   description: |-
                     For broker_name = 'ig', it is the user password connecting your broker account. 
+                    For broker_name = 'exness', it is your MT5 login password.
 
                     It is not required for other brokers.
+                broker_server:
+                  type: string
+                  description: |-
+                    For broker_account_type = 'MT5', it is your broker MT5 server. 
+                    eg. Exness-MT5Trial 
               required:
                 - user
                 - api_key
