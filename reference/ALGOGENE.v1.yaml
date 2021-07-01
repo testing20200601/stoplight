@@ -793,6 +793,16 @@ paths:
                     ‘af','ar','bg','bn','ca','cs','cy','da','de','el','en','es','et','fa','fi','fr','gu','he','hi','hr','hu','id','it','ja','kn','ko
                     ','lt','lv','mk','ml','mr','ne','nl','no','pa','pl','pt','ro','ru','sk','sl','so','sq','sv','sw','ta','te','th','tl','tr','uk','
                     ur','vi','zh-cn','zh-tw'
+                category:
+                  type: string
+                  description: |-
+                    Avaiable values include 'AFRICA', 'AGRICULTURE', 'AMERICAS', 'ART', 'ASIA', 'ASSET_SALES', 'AUSTRALIA', 'AUTO', 'BIOTECH', 'BOND', 'BOOK', 'BOTsWANA', 'BUSINESS', 'BUYBACK', 'CANADA', 'CENTRAL_ASIA', 'CHINA', 'COMMENTARY', 'COMMODITY', 'COMMUNITY', 'COMPANY', 'COMPANY NEWS', 'CONTRACT', 'CULTURE', 'DIPLOMACY', 'DIVIDENDS', 'EARNINGS', 'EAST_ASIA', 'ECONOMY', 'EDUCATION', 'EMERGING_MARKET', 'ENERGY', 'ENTERTAINMENT', 'ENVIRONMENT', 'ETF', 'ETHIOPIA', 'EUROPE', 'EVENT', 'FASHION', 'FDA', 'FEDERAL_RESERVE', 'FINANCE', 'FINANCING', 'FINTECH', 'FOREX', 'FORUM', 'FRANCE', 'FUND', 'FUTURE', 'GENERAL', 'GEOPOLITICS', 'GERMANY', 'GHANA', 'HEALTH', 'HEIDI', 'HISTORY', 'HONG KONG', 'HOT', 'HOUSE', 'INDIA', 'INDONESIA', 'INSIDER_TRADE', 'INTERNET', 'INTERVIEW', 'IPO', 'IRELAND', 'ISRAEL', 'ITALIA', 'JAPAN', 'KENYA', 'KOREA', 'LATIN_AMERICA', 'LATVIA', 'LAW', 'LEGAL', 'LIFESTYLE', 'LOGISTICS', 'M&A', 'MALAYSIA', 'MANAGEMENT', 'MEDIA', 'MIDDLE_EAST', 'MILITARY', 'MONEY', 'MOVIES', 'NAMIBIA', 'NATION', 'NEW_ZEALAND', 'NIGERIA', 'NORTH_KOREA', 'OFFERING', 'OPINION', 'OPTION', 'PAKISTAN', 'PEOPLE', 'PETS', 'PHILIPPINES', 'PICTURES', 'POLITICS', 'POLLS', 'POSTAL', 'PRESS', 'RATING', 'REAL_ESTATE', 'REAL_TIME', 'REGION', 'RESEARCH', 'RETAIL_SALES', 'REVIEW', 'RUMORS', 'RUSSIA', 'SCIENCE', 'SINGAPORE', 'SMALL_CAP', 'SOCIALS', 'SOUTHEAST_ASIA', 'SOUTH_AFRICA', 'SOUTH_ASIA', 'SPEECH', 'SPORT', 'SPORT_BOXING', 'SPORT_GOLF', 'SPORT_RACING', 'SPORT_RUGBY', 'SPORT_SOCCER', 'SPORT_TENNIS', 'STATISITCS', 'STOCK', 'STOCK_SPLIT', 'STORY', 'TAIWAN', 'TANZANIA', 'TECHNOLOGY', 'TELECOMS', 'TOP', 'TOURISM', 'TRAFFIC', 'TRAVEL', 'TURKEY', 'UGANDA', 'UK', 'US', 'USA', 'WEATHER', 'WORLD', 'ZIMBABWE'; 
+                    Multiple category separated by ","
+                source:
+                  type: string
+                  description: |-
+                    Available values include 'APPLE_DAILY', 'AsahiNews', 'BBC', 'CHOSUM', 'CNN', 'DW_NEWS', 'FACEBOOK', 'GOOGLE', 'GOV.HK', 'HKFP', 'InsiderInsight', 'JTBC', 'JapanIndustryNews', 'KBS', 'KyodoNews', 'LivedoorNews', 'MARKETWATCH', 'NDTV', 'NHK', 'NipponNews', 'ORIENTAL_DAILY', 'PeopleDaily', 'REUTERS', 'RTHK', 'SoraNews', 'TRT', 'UDN', 'WallStreetJournal', 'YAHOO', 'Yonhap', 'aamacau', 'bastillepost', 'benzinga', 'feedburner', 'feedx', 'heraldcorp', 'hkcnews', 'hkjam', 'inmediahk', 'japaninsides', 'japantimes', 'japantoday', 'koreaherald', 'koreatimes', 'litenews', 'localpresshk', 'mcnews', 'memehk', 'newsonjapan', 'nytimes', 'pentoy', 'philstar', 'polymerhk', 'post852', 'scmp', 'thebridge', 'theinitium', 'thejapannews', 'thestandnews', 'tmhk', 'tokyoreporter', 'voachinese', 'yahoo', 'zakzak', 'zhihu'
+                    Mutiple source separated by ","
               required:
                 - api_key
                 - user
@@ -3177,6 +3187,16 @@ paths:
                     ‘af','ar','bg','bn','ca','cs','cy','da','de','el','en','es','et','fa','fi','fr','gu','he','hi','hr','hu','id','it','ja','kn','ko
                     ','lt','lv','mk','ml','mr','ne','nl','no','pa','pl','pt','ro','ru','sk','sl','so','sq','sv','sw','ta','te','th','tl','tr','uk','
                     ur','vi','zh-cn','zh-tw'
+                category:
+                  type: string
+                  description: |-
+                    Avaiable values include 'AFRICA', 'AGRICULTURE', 'AMERICAS', 'ART', 'ASIA', 'ASSET_SALES', 'AUSTRALIA', 'AUTO', 'BIOTECH', 'BOND', 'BOOK', 'BOTsWANA', 'BUSINESS', 'BUYBACK', 'CANADA', 'CENTRAL_ASIA', 'CHINA', 'COMMENTARY', 'COMMODITY', 'COMMUNITY', 'COMPANY', 'COMPANY NEWS', 'CONTRACT', 'CULTURE', 'DIPLOMACY', 'DIVIDENDS', 'EARNINGS', 'EAST_ASIA', 'ECONOMY', 'EDUCATION', 'EMERGING_MARKET', 'ENERGY', 'ENTERTAINMENT', 'ENVIRONMENT', 'ETF', 'ETHIOPIA', 'EUROPE', 'EVENT', 'FASHION', 'FDA', 'FEDERAL_RESERVE', 'FINANCE', 'FINANCING', 'FINTECH', 'FOREX', 'FORUM', 'FRANCE', 'FUND', 'FUTURE', 'GENERAL', 'GEOPOLITICS', 'GERMANY', 'GHANA', 'HEALTH', 'HEIDI', 'HISTORY', 'HONG KONG', 'HOT', 'HOUSE', 'INDIA', 'INDONESIA', 'INSIDER_TRADE', 'INTERNET', 'INTERVIEW', 'IPO', 'IRELAND', 'ISRAEL', 'ITALIA', 'JAPAN', 'KENYA', 'KOREA', 'LATIN_AMERICA', 'LATVIA', 'LAW', 'LEGAL', 'LIFESTYLE', 'LOGISTICS', 'M&A', 'MALAYSIA', 'MANAGEMENT', 'MEDIA', 'MIDDLE_EAST', 'MILITARY', 'MONEY', 'MOVIES', 'NAMIBIA', 'NATION', 'NEW_ZEALAND', 'NIGERIA', 'NORTH_KOREA', 'OFFERING', 'OPINION', 'OPTION', 'PAKISTAN', 'PEOPLE', 'PETS', 'PHILIPPINES', 'PICTURES', 'POLITICS', 'POLLS', 'POSTAL', 'PRESS', 'RATING', 'REAL_ESTATE', 'REAL_TIME', 'REGION', 'RESEARCH', 'RETAIL_SALES', 'REVIEW', 'RUMORS', 'RUSSIA', 'SCIENCE', 'SINGAPORE', 'SMALL_CAP', 'SOCIALS', 'SOUTHEAST_ASIA', 'SOUTH_AFRICA', 'SOUTH_ASIA', 'SPEECH', 'SPORT', 'SPORT_BOXING', 'SPORT_GOLF', 'SPORT_RACING', 'SPORT_RUGBY', 'SPORT_SOCCER', 'SPORT_TENNIS', 'STATISITCS', 'STOCK', 'STOCK_SPLIT', 'STORY', 'TAIWAN', 'TANZANIA', 'TECHNOLOGY', 'TELECOMS', 'TOP', 'TOURISM', 'TRAFFIC', 'TRAVEL', 'TURKEY', 'UGANDA', 'UK', 'US', 'USA', 'WEATHER', 'WORLD', 'ZIMBABWE'; 
+                    Multiple category separated by ","
+                source:
+                  type: string
+                  description: |-
+                    Available values include 'APPLE_DAILY', 'AsahiNews', 'BBC', 'CHOSUM', 'CNN', 'DW_NEWS', 'FACEBOOK', 'GOOGLE', 'GOV.HK', 'HKFP', 'InsiderInsight', 'JTBC', 'JapanIndustryNews', 'KBS', 'KyodoNews', 'LivedoorNews', 'MARKETWATCH', 'NDTV', 'NHK', 'NipponNews', 'ORIENTAL_DAILY', 'PeopleDaily', 'REUTERS', 'RTHK', 'SoraNews', 'TRT', 'UDN', 'WallStreetJournal', 'YAHOO', 'Yonhap', 'aamacau', 'bastillepost', 'benzinga', 'feedburner', 'feedx', 'heraldcorp', 'hkcnews', 'hkjam', 'inmediahk', 'japaninsides', 'japantimes', 'japantoday', 'koreaherald', 'koreatimes', 'litenews', 'localpresshk', 'mcnews', 'memehk', 'newsonjapan', 'nytimes', 'pentoy', 'philstar', 'polymerhk', 'post852', 'scmp', 'thebridge', 'theinitium', 'thejapannews', 'thestandnews', 'tmhk', 'tokyoreporter', 'voachinese', 'yahoo', 'zakzak', 'zhihu'
+                    Mutiple source separated by ","
               required:
                 - user
                 - api_key
